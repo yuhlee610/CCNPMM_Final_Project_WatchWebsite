@@ -1,10 +1,16 @@
 package com.ccnpmm.entity;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import poly.entity.Record;
 
 @Entity
 public class Product {
@@ -29,6 +35,15 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "MaterialId")
 	private Material material;
+	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+	private Collection<OrderDetail> orderDetails;
+	public Collection<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(Collection<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
 
 	public Product() {
 		super();
