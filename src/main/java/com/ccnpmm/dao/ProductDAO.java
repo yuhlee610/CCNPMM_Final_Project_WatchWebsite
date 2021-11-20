@@ -1,0 +1,56 @@
+package com.ccnpmm.dao;
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import com.ccnpmm.entity.Product;
+
+@Repository
+public class ProductDAO {
+	@Autowired
+	protected JdbcTemplate jdbc;
+
+	public void insert(Product entity) {
+		String sql = "INSERT INTO Product (Id, Name, Amount, Price, Image, Decription, Sold, BrandId, EnergyId, MaterialId) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		jdbc.update(sql, entity.getId(), entity.getName(), entity.getAmount(), entity.getPrice(), 
+				entity.getPrice(), entity.getImage(), entity.getDescription(), entity.getSold(), 
+				entity.getBrand().getBrandId(), entity.getEnergy().getEnergyId(), entity.getMaterial().getMaterialId());
+	}
+
+	public void update(Product entity) {
+		String sql = "UPDATE Product SET Name=?, Amount=?, Price=?, Image=?, Decription=?, Sold=?, BrandId=?, EnergyId=?, MaterialId=? WHERE Id=?";
+		jdbc.update(sql, entity.getName(), entity.getAmount(), entity.getPrice(), 
+				entity.getPrice(), entity.getImage(), entity.getDescription(), entity.getSold(), 
+				entity.getBrand().getBrandId(), entity.getEnergy().getEnergyId(), 
+				entity.getMaterial().getMaterialId(), entity.getId());
+	}
+
+	public void delete(Serializable id) {
+		String sql = "DELETE FROM Product WHERE Id=?";
+		jdbc.update(sql, id);
+	}
+
+	public Product getById(Serializable id) {
+		String sql = "SELECT * FROM Product WHERE Id=?";
+		return jdbc.queryForObject(sql, getRowMapper(), id);
+	}
+
+	public List<Product> getAll() {
+		String sql = "SELECT * FROM Product";
+		return getBySql(sql);
+	}
+
+	protected List<Product> getBySql(String sql) {
+		return jdbc.query(sql, getRowMapper());
+	}
+
+	private RowMapper<Product> getRowMapper() {
+		return new BeanPropertyRowMapper<Product>(Product.class);
+	}
+}
