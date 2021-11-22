@@ -13,12 +13,14 @@
 
 <!-- CSS here -->
 <link rel="stylesheet" href="./resources/assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="./resources/assets/css/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="./resources/assets/css/owl.carousel.min.css">
 <link rel="stylesheet" href="./resources/assets/css/flaticon.css">
 <link rel="stylesheet" href="./resources/assets/css/slicknav.css">
 <link rel="stylesheet" href="./resources/assets/css/animate.min.css">
 <link rel="stylesheet" href="./resources/assets/css/magnific-popup.css">
-<link rel="stylesheet" href="./resources/assets/css/fontawesome-all.min.css">
+<link rel="stylesheet"
+	href="./resources/assets/css/fontawesome-all.min.css">
 <link rel="stylesheet" href="./resources/assets/css/themify-icons.css">
 <link rel="stylesheet" href="./resources/assets/css/slick.css">
 <link rel="stylesheet" href="./resources/assets/css/nice-select.css">
@@ -250,5 +252,25 @@
 	<script src="./resources/assets/js/plugins.js"></script>
 	<script src="./resources/assets/js/main.js"></script>
 
+	<script>
+		$("#register-form").validate({
+			rules : {
+				username : "required",
+				password : "required",
+				name : "required",
+				address : "required",
+				email : "required",
+				confirmPassword : {
+					equalTo : "#password",
+					required : true
+				},
+				phone : {
+					matches : "[0-9]+",
+					minlength : 10,
+					required : true
+				}
+			}
+		});
+	</script>
 </body>
 </html>
