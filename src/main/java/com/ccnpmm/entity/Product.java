@@ -10,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import poly.entity.Record;
-
 @Entity
 public class Product {
 	@Id
