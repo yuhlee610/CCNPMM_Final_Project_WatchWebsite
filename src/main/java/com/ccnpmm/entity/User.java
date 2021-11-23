@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -42,12 +44,46 @@ public class User {
 	
 	@Column(name = "Avatar")
 	private String avatar;
+
+	@ManyToOne
+	@JoinColumn(name = "RoleId")
+	private Role role;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private Collection<Cart> carts;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private Collection<Order> orders;
+	
+	public User() {
+		super();
+	}
+
+	public User(Integer id, String username, String password, String email, String name, String address, boolean state,
+			String phone, String birthday, String avatar, Role role, Collection<Cart> carts, Collection<Order> orders) {
+		super();
+		Id = id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.name = name;
+		this.address = address;
+		this.state = state;
+		this.phone = phone;
+		this.birthday = birthday;
+		this.avatar = avatar;
+		this.role = role;
+		this.carts = carts;
+		this.orders = orders;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 	
 	public Integer getId() {
 		return Id;

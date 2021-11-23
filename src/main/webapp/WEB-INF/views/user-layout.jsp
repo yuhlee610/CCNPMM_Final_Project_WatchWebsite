@@ -253,6 +253,15 @@
 	<script src="./resources/assets/js/main.js"></script>
 
 	<script>
+	$(document).ready(function () {
+		jQuery.validator.addMethod("phonenu", function (value, element) {
+	        if ( /^\d{3}-?\d{3}-?\d{4}$/g.test(value)) {
+	            return true;
+	        } else {
+	            return false;
+	        };
+	    }, "Invalid phone number");
+		
 		$("#register-form").validate({
 			rules : {
 				username : "required",
@@ -265,12 +274,12 @@
 					required : true
 				},
 				phone : {
-					matches : "[0-9]+",
-					minlength : 10,
+					phonenu: true,
 					required : true
 				}
 			}
 		});
+	})
 	</script>
 </body>
 </html>
