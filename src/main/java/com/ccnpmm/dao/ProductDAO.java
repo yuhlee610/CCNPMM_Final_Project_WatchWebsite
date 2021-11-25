@@ -46,7 +46,7 @@ public class ProductDAO {
 		return getBySql(sql);
 	}
 
-	protected List<Product> getBySql(String sql) {
+	public List<Product> getBySql(String sql) {
 		return jdbc.query(sql, getRowMapper());
 	}
 

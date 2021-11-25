@@ -20,6 +20,7 @@ public class Product {
 	private String image;
 	@Column(name = "Decription")
 	private String description;
+//	@Column(name = "Sold")
 	private Integer sold;
 
 	@ManyToOne
