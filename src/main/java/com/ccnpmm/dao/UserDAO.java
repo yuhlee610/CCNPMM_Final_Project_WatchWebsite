@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.ccnpmm.entity.Product;
 import com.ccnpmm.entity.User;
 
 @Repository
@@ -42,6 +41,11 @@ public class UserDAO {
 	public User getById(Serializable id) {
 		String sql = "SELECT * FROM User WHERE Id=?";
 		return jdbc.queryForObject(sql, getRowMapper(), id);
+	}
+	
+	public User getByUsername(String username) {
+		String sql = "SELECT * FROM [User] WHERE Username=?";
+		return jdbc.queryForObject(sql, getRowMapper(), username);
 	}
 
 	public List<User> getAll() {

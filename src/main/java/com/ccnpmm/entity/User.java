@@ -43,6 +43,9 @@ public class User {
 	@Column(name = "Avatar")
 	private String avatar;
 	
+	@Column(name = "RoleId")
+	private Integer roleId;
+	
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private Collection<Cart> carts;
 	
@@ -144,6 +147,16 @@ public class User {
 	public void setCarts(Collection<Cart> carts) {
 		this.carts = carts;
 	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+	
+	
 
 	
 	
