@@ -253,33 +253,46 @@
 	<script src="./resources/assets/js/main.js"></script>
 
 	<script>
-	$(document).ready(function () {
-		jQuery.validator.addMethod("phonenu", function (value, element) {
-	        if ( /^\d{3}-?\d{3}-?\d{4}$/g.test(value)) {
-	            return true;
-	        } else {
-	            return false;
-	        };
-	    }, "Invalid phone number");
-		
-		$("#register-form").validate({
-			rules : {
-				username : "required",
-				password : "required",
-				name : "required",
-				address : "required",
-				email : "required",
-				confirmPassword : {
-					equalTo : "#password",
-					required : true
-				},
-				phone : {
-					phonenu: true,
-					required : true
+		$(document).ready(function() {
+			jQuery.validator.addMethod("phonenu", function(value, element) {
+				if (/^\d{3}-?\d{3}-?\d{4}$/g.test(value)) {
+					return true;
+				} else {
+					return false;
 				}
-			}
-		});
-	})
+				;
+			}, "Invalid phone number");
+
+			$("#register-form").validate({
+				rules : {
+					username : "required",
+					password : "required",
+					name : "required",
+					address : "required",
+					email : "required",
+					confirmPassword : {
+						equalTo : "#password",
+						required : true
+					},
+					phone : {
+						phonenu : true,
+						required : true
+					}
+				}
+			});
+		})
+		let url = window.location.href
+		let query = ''
+		if(url.slice(-4) === 'shop') {
+			query = '?viewMore=true'
+		}
+		else {
+			query = '&viewMore=true'
+		}
+		if(!url.includes('viewMore')) {
+			url = url + query
+		}
+		$("#view_more").attr("href", url)
 	</script>
 </body>
 </html>
