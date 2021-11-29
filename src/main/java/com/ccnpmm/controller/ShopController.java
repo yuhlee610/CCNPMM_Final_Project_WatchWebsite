@@ -27,8 +27,6 @@ public class ShopController {
 	@Autowired
 	private ProductDAO productDao;
 
-	private Integer itemsPerPage = 1;
-
 	@RequestMapping(value = "shop", method = RequestMethod.GET)
 	public String filter(Filter filterModel, ModelMap model) {
 		String filterBrand = "";
@@ -64,13 +62,10 @@ public class ShopController {
 			}
 		}
 
-		if (filterModel.getViewMore() != null) {
-			if (filterModel.getViewMore() == true) {
-				itemsPerPage = itemsPerPage + 1;
-			}
+		Integer itemsPerPage = 1;
+		if(filterModel.getViewMore() != null) {
+			itemsPerPage = filterModel.getViewMore();
 		}
-		
-		System.out.println(filterModel.getItems());
 
 		String query = "SELECT TOP " + itemsPerPage + " * FROM PRODUCT WHERE " + filterBrand + filterPrice + filterSort;
 		if (filterBrand.isEmpty() && filterPrice.isEmpty() && filterSort.isEmpty()) {

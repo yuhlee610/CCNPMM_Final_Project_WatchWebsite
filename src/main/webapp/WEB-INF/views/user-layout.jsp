@@ -281,18 +281,25 @@
 				}
 			});
 		})
+
 		let url = window.location.href
 		let query = ''
-		if(url.slice(-4) === 'shop') {
-			query = '?viewMore=true'
+		let itemsPerPage = 12
+		if (url.slice(-4) === 'shop') {
+			query = '?viewMore='
+		} else {
+			query = '&viewMore='
+			if (url.includes('viewMore')) {
+				query = '?viewMore='
+			}
 		}
-		else {
-			query = '&viewMore=true'
+		if (url.includes('viewMore')) {
+			itemsPerPage = parseInt(url.substr(url.indexOf('viewMore') + 6,
+					url.length - 1))
+			itemsPerPage = itemsPerPage + 10
+			url = url.slice(0, url.indexOf('viewMore') - 1)
 		}
-		if(!url.includes('viewMore')) {
-			url = url + query
-		}
-		$("#view_more").attr("href", url)
+		$("#view_more").attr("href", url + query + itemsPerPage)
 	</script>
 </body>
 </html>

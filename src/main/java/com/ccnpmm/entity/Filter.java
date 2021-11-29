@@ -4,24 +4,14 @@ public class Filter {
 	private String price;
 	private int[] brands;
 	private String sortBy;
-	private Boolean viewMore;
-	private Integer items;
+	private Integer viewMore;
 
-	public Integer getItems() {
-		return items;
-	}
-
-	public void setItems(Integer items) {
-		this.items = items;
-	}
-
-	public Filter(String price, int[] brands, String sortBy, Boolean viewMore, Integer items) {
+	public Filter(String price, int[] brands, String sortBy, Integer viewMore) {
 		super();
 		this.price = price;
 		this.brands = brands;
 		this.sortBy = sortBy;
 		this.viewMore = viewMore;
-		this.items = items;
 	}
 
 	public Filter() {
@@ -52,11 +42,11 @@ public class Filter {
 		this.sortBy = sortBy;
 	}
 
-	public Boolean getViewMore() {
+	public Integer getViewMore() {
 		return viewMore;
 	}
 
-	public void setViewMore(Boolean viewMore) {
+	public void setViewMore(Integer viewMore) {
 		this.viewMore = viewMore;
 	}
 
