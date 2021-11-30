@@ -17,7 +17,7 @@ public class CartDAO {
 	protected JdbcTemplate jdbc;
 	
 	public void insert(Cart entity) {
-		String sql = "INSERT INTO Cart (UserId, ProducId, Count) VALUES (?,?,?)";
+		String sql = "INSERT INTO Cart (UserId, ProductId, Count) VALUES (?,?,?)";
 		jdbc.update(sql, entity.getUser().getId(), entity.getProduct().getId(), entity.getCount());
 	}
 	
@@ -35,13 +35,18 @@ public class CartDAO {
 		String sql = "SELECT * FROM Cart WHERE UserId=?";
 		return jdbc.queryForObject(sql, getRowMapper(), userId);
 	}
+	
+	public Cart getByUserAndProduct(Serializable userId, Serializable productId) {
+		String sql = "SELECT * FROM Cart WHERE UserId=? and ProductId=?";
+		return jdbc.queryForObject(sql, getRowMapper(), userId, productId);
+	}
 
 	public List<Cart> getAll() {
 		String sql = "SELECT * FROM Cart";
 		return getBySql(sql);
 	}
 
-	protected List<Cart> getBySql(String sql) {
+	public List<Cart> getBySql(String sql) {
 		return jdbc.query(sql, getRowMapper());
 	}
 

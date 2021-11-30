@@ -1,5 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 
+<c:if test="${not empty message}">
+	<script>alert("${message}")</script>
+</c:if>
+<%
+	request.getSession().setAttribute("message", "");
+%>
+
 <!-- Hero Area Start-->
 <div class="slider-area ">
 	<div class="single-slider slider-height2 d-flex align-items-center">
@@ -81,7 +88,8 @@
 								<div class="popular-img">
 									<img src="${p.getImage() }" alt="">
 									<div class="img-cap">
-										<span>Add to cart</span>
+										<span><a href="<c:url value="/addToCart?productId=${p.getId()}&quantity=1" />" >Add to cart</a></span>
+										
 									</div>
 									<div class="favorit-items">
 										<span class="flaticon-heart"></span>

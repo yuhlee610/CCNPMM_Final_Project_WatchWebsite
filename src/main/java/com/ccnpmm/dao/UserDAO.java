@@ -40,7 +40,7 @@ public class UserDAO {
 	}
 
 	public User getById(Serializable id) {
-		String sql = "SELECT * FROM User WHERE Id=?";
+		String sql = "SELECT * FROM [User] WHERE Id=?";
 		return jdbc.queryForObject(sql, getRowMapper(), id);
 	}
 

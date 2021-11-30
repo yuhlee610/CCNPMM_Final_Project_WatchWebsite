@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ccnpmm.dao.BrandDAO;
+import com.ccnpmm.dao.CartDAO;
 import com.ccnpmm.dao.ProductDAO;
+import com.ccnpmm.dao.UserDAO;
 import com.ccnpmm.entity.Brand;
+import com.ccnpmm.entity.Cart;
 import com.ccnpmm.entity.Filter;
 import com.ccnpmm.entity.Product;
+import com.ccnpmm.entity.User;
 
 @Controller
 public class ShopController {
@@ -27,8 +31,14 @@ public class ShopController {
 	@Autowired
 	private ProductDAO productDao;
 
+	@Autowired
+	private CartDAO cartDao;
+
+	@Autowired
+	private UserDAO userDao;
+
 	@RequestMapping(value = "shop", method = RequestMethod.GET)
-	public String filter(Filter filterModel, ModelMap model) {
+	public String filter(Filter filterModel, ModelMap model, HttpServletRequest request) {
 		String filterBrand = "";
 		if (ArrayUtils.isNotEmpty(filterModel.getBrands())) {
 			for (int i = 0; i < filterModel.getBrands().length; i++) {
@@ -63,7 +73,7 @@ public class ShopController {
 		}
 
 		Integer itemsPerPage = 1;
-		if(filterModel.getViewMore() != null) {
+		if (filterModel.getViewMore() != null) {
 			itemsPerPage = filterModel.getViewMore();
 		}
 
@@ -81,6 +91,77 @@ public class ShopController {
 		model.addAttribute("filterModel", filter);
 		model.addAttribute("products", productList);
 
+		String message = (String) request.getSession().getAttribute("message");
+		model.addAttribute("message", message);
+
 		return "user/shop";
+	}
+	
+	@RequestMapping("/search")
+	public String searchProduct(ModelMap model, @RequestParam(value = "search", required = true) String search) {
+		String query = "SELECT * FROM PRODUCT WHERE Name LIKE '%" + search + "%'" ;
+		List<Product> productList = productDao.getBySql(query);
+		List<Brand> brandList = brandDao.getAll();
+		model.addAttribute("brandList", brandList);
+		Filter filter = new Filter();
+		model.addAttribute("filterModel", filter);
+		model.addAttribute("products", productList);
+		return "user/shop";
+	}
+
+	@RequestMapping("/addToCart")
+	public String addToCart(@RequestParam(value = "productId", required = true) String productId,
+			@RequestParam(value = "quantity", required = true) Integer quantity, HttpServletRequest request,
+			ModelMap model) {
+//		User user = (User) request.getSession().getAttribute("user");
+		User user = userDao.getById(2);
+
+		String message = (String) request.getSession().getAttribute("message");
+
+		// check product exist
+		Product product = productDao.getById(productId);
+		if (product == null) {
+			message = "San pham khong ton tai";
+			request.getSession().setAttribute("message", message);
+			return "redirect:shop";
+		}
+
+		if (product.getAmount() < quantity) {
+			message = "Khong du san pham";
+			request.getSession().setAttribute("message", message);
+			return "redirect:shop";
+		}
+
+		String sql = "SELECT * FROM Cart WHERE UserId=" + user.getId() + " and ProductId=" + "'" + product.getId()
+				+ "'";
+		List<Cart> listCart = cartDao.getBySql(sql);
+		
+		
+		if(listCart.size() == 0) {
+//			Cart cart = new Cart(user, product, quantity);
+//			cartDao.insert(cart);
+			message = "Them san pham vao gio hang thanh cong";
+			request.getSession().setAttribute("message", message);
+		}
+		else {
+			if (listCart.get(0).getCount() + quantity > product.getAmount()) {
+				message = "Khong du san pham";
+				request.getSession().setAttribute("message", message);
+				return "redirect:shop";
+			} else {
+//				listCart.get(0).setCount(listCart.get(0).getCount() + quantity);
+//				System.out.println(listCart.get(0).getCount());
+//				System.out.println(listCart.get(0).getUser().getId());
+//				System.out.println(listCart.get(0).getProduct().getId());
+//				cartDao.update(listCart.get(0));
+//				message = "Them san pham vao gio hang thanh cong";
+//				request.getSession().setAttribute("message", message);
+				 
+				Cart tc = cartDao.getByUser(user.getId());
+//				System.out.println(tc.getUser().getId());
+			}
+		}
+		
+		return "redirect:shop";
 	}
 }

@@ -23,6 +23,13 @@ public class Cart {
 	@Column(name = "Count")
 	private Integer count;
 
+	public Cart(User user, Product product, Integer count) {
+		super();
+		this.user = user;
+		this.product = product;
+		this.count = count;
+	}
+
 	public User getUser() {
 		return user;
 	}
