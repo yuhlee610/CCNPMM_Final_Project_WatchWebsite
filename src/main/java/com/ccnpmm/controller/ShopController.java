@@ -36,6 +36,13 @@ public class ShopController {
 
 	@Autowired
 	private UserDAO userDao;
+	
+	@RequestMapping("/detail")
+	public String detail(@RequestParam(value = "productId", required = true) String productId, ModelMap model) {
+		Product pro = productDao.getById(productId);
+		model.addAttribute("product", pro);
+		return "user/product-detail";
+	}
 
 	@RequestMapping(value = "shop", method = RequestMethod.GET)
 	public String filter(Filter filterModel, ModelMap model, HttpServletRequest request) {
