@@ -177,7 +177,7 @@
 		<!-- Button -->
 		<div class="row justify-content-center">
 			<div class="room-btn pt-70">
-				<a href="catagori.html" class="btn view-btn1">View More Products</a>
+				<a href="<c:url value="/shop" />" class="btn view-btn1">View More Products</a>
 			</div>
 		</div>
 	</div>

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ccnpmm.entity.Order;
 
-
 @Repository
 public class OrderDAO {
 	@Autowired
@@ -19,15 +18,18 @@ public class OrderDAO {
 
 	public void insert(Order entity) {
 		String sql = "INSERT INTO Order (OrderId, Code, OrderDate, Total, Address, Name, Phone,UserId, DeliveryStatus) VALUES (?,?,?,?,?,?,?,?,?)";
-		jdbc.update(sql, entity.getOrderId(), entity.getCode(), entity.getOrderDate(), entity.getTotal(), 
-				entity.getAddress(), entity.getName(), entity.getPhone(),entity.getUser().getId(), entity.getDeliveryStatus());
+		jdbc.update(sql, entity.getOrderId(), entity.getCode(), entity.getOrderDate(), entity.getTotal(),
+				entity.getAddress(), entity.getName(), entity.getPhone(), entity.getUserId(),
+				entity.getDeliveryStatus());
 	}
 
 	public void update(Order entity) {
 		String sql = "UPDATE Order SET Code=?, OrderDate=?, Total=?, Address=?, Name=?, Phone=?, UserId=?, DeliveryStatus=? WHERE OrderId=?";
-		jdbc.update(sql, entity.getCode(), entity.getOrderDate(), entity.getTotal(), 
-				entity.getAddress(), entity.getName(), entity.getPhone(),entity.getUser().getId(), entity.getDeliveryStatus(),entity.getOrderId());
+		jdbc.update(sql, entity.getCode(), entity.getOrderDate(), entity.getTotal(), entity.getAddress(),
+				entity.getName(), entity.getPhone(), entity.getUserId(), entity.getDeliveryStatus(),
+				entity.getOrderId());
 	}
+
 	public void delete(Serializable id) {
 		String sql = "DELETE FROM Order WHERE OrderId=?";
 		jdbc.update(sql, id);

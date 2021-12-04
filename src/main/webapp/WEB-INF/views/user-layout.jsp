@@ -1,4 +1,6 @@
 <%@ page pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -25,6 +27,48 @@
 <link rel="stylesheet" href="./resources/assets/css/slick.css">
 <link rel="stylesheet" href="./resources/assets/css/nice-select.css">
 <link rel="stylesheet" href="./resources/assets/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+
+<style>
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  border: 2px solid #ddd;
+  display: inline-flex;
+}
+
+.number-input,
+.number-input * {
+  box-sizing: border-box;
+}
+
+.number-input div {
+  outline:none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  color: #415094;
+  font-size: 20px;
+  text-align: center;
+}
+
+</style>
 </head>
 
 <body>
@@ -56,8 +100,8 @@
 						<div class="main-menu d-none d-lg-block">
 							<nav>
 								<ul id="navigation">
-									<li><a href="index.html">Home</a></li>
-									<li><a href="shop.html">shop</a></li>
+									<li><a href="<c:url value="/" />">Home</a></li>
+									<li><a href="<c:url value="/shop" />">shop</a></li>
 									<li><a href="about.html">about</a></li>
 									<li class="hot"><a href="#">Latest</a>
 										<ul class="submenu">
@@ -72,7 +116,7 @@
 									<li><a href="#">Pages</a>
 										<ul class="submenu">
 											<li><a href="login.html">Login</a></li>
-											<li><a href="cart.html">Cart</a></li>
+											<li><a href="<c:url value="/cartList" />">Cart</a></li>
 											<li><a href="elements.html">Element</a></li>
 											<li><a href="confirmation.html">Confirmation</a></li>
 											<li><a href="checkout.html">Product Checkout</a></li>
@@ -90,7 +134,7 @@
 									</div>
 								</li>
 								<li><a href="login.html"><span class="flaticon-user"></span></a></li>
-								<li><a href="cart.html"><span
+								<li><a href="<c:url value="/cartList" />"><span
 										class="flaticon-shopping-cart"></span></a></li>
 							</ul>
 						</div>

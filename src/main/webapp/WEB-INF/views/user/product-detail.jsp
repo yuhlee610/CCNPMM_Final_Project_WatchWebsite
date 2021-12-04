@@ -1,3 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+
+<c:if test="${not empty message}">
+	<script>alert("${message}")</script>
+</c:if>
+<%
+	request.getSession().setAttribute("message", "");
+%>
+
 <!-- Hero Area Start-->
 <div class="slider-area ">
 	<div class="single-slider slider-height2 d-flex align-items-center">
@@ -29,12 +38,14 @@
 						${product.getName() }
 					</h3>
 					<p>${product.getDescription() }</p>
-					<div class="card_area">
+					<form class="card_area" method="get" action="addItemToCart">
+						<input type="hidden" value="${product.getId()}" name="productId"/>
 						<div class="product_count_area">
 							<p>Quantity</p>
 							<div class="product_count d-inline-block">
 								<span class="product_count_item inumber-decrement"> <i
 									class="ti-minus"></i></span> <input
+									name="quantity"
 									class="product_count_item input-number" type="text" value="1"
 									min="1" max="${product.getAmount() }"> <span
 									class="product_count_item number-increment"> <i
@@ -43,9 +54,9 @@
 							<p>$${product.getPrice() }</p>
 						</div>
 						<div class="add_to_cart">
-							<a href="#" class="btn_3">add to cart</a>
+							<button class="btn_3">Add to cart</button>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>

@@ -84,7 +84,7 @@ public class AccountController {
 		try {
 			if(decodedEmail.equals(user.getEmail())) {
 				List<Role> roleList = roleDao.getBySql("SELECT * FROM [Role] WHERE Rolename='Customer'");
-				user.setRole(roleList.get(0));
+				user.setRoleId(roleList.get(0).getRoleId());
 				userDao.register(user);
 				return "user/index";
 			}

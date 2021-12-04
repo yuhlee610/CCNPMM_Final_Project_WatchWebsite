@@ -9,7 +9,7 @@ public class Role {
 	@Id
 	@GeneratedValue
 	private Integer roleId;
-	
+
 	private String roleName;
 
 	public Role() {
