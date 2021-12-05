@@ -19,14 +19,14 @@ public class ProductDAO {
 	public void insert(Product entity) {
 		String sql = "INSERT INTO Product (Id, Name, Amount, Price, Image, Decription, Sold, BrandId, EnergyId, MaterialId) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		jdbc.update(sql, entity.getId(), entity.getName(), entity.getAmount(), entity.getPrice(), entity.getPrice(),
-				entity.getImage(), entity.getDescription(), entity.getSold(), entity.getBrandId(), entity.getEnergyId(),
+				entity.getImage(), entity.getDecription(), entity.getSold(), entity.getBrandId(), entity.getEnergyId(),
 				entity.getMaterialId());
 	}
 
 	public void update(Product entity) {
 		String sql = "UPDATE Product SET Name=?, Amount=?, Price=?, Image=?, Decription=?, Sold=?, BrandId=?, EnergyId=?, MaterialId=? WHERE Id=?";
 		jdbc.update(sql, entity.getName(), entity.getAmount(), entity.getPrice(), entity.getPrice(), entity.getImage(),
-				entity.getDescription(), entity.getSold(), entity.getBrandId(), entity.getEnergyId(),
+				entity.getDecription(), entity.getSold(), entity.getBrandId(), entity.getEnergyId(),
 				entity.getMaterialId(), entity.getId());
 	}
 

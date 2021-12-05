@@ -30,7 +30,7 @@ public class Product {
 		this.amount = amount;
 		this.price = price;
 		this.image = image;
-		this.description = description;
+		this.decription = decription;
 		this.sold = sold;
 		this.brandId = brandId;
 		this.energyId = energyId;

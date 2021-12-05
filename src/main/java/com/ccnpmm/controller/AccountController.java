@@ -7,7 +7,6 @@ import java.util.List;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,7 +14,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +22,6 @@ import com.ccnpmm.dao.RoleDAO;
 import com.ccnpmm.dao.UserDAO;
 import com.ccnpmm.entity.Role;
 import com.ccnpmm.entity.User;
-import com.ccnpmm.utilities.SendMail;
 
 @Controller
 public class AccountController {

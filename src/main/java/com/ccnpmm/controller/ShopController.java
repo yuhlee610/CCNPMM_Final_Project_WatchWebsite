@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.ccnpmm.dao.BrandDAO;
 import com.ccnpmm.dao.CartDAO;
+import com.ccnpmm.dao.CommentUserDAO;
 import com.ccnpmm.dao.DetailCartDAO;
 import com.ccnpmm.dao.EnergyDAO;
 import com.ccnpmm.dao.MaterialDAO;
@@ -23,6 +24,7 @@ import com.ccnpmm.dao.ProductDAO;
 import com.ccnpmm.dao.UserDAO;
 import com.ccnpmm.entity.Brand;
 import com.ccnpmm.entity.Cart;
+import com.ccnpmm.entity.CommentUser;
 import com.ccnpmm.entity.DetailCart;
 import com.ccnpmm.entity.Filter;
 import com.ccnpmm.entity.Product;
@@ -50,6 +52,9 @@ public class ShopController {
 	
 	@Autowired
 	private DetailCartDAO detailCartDao;
+	
+	@Autowired
+	private CommentUserDAO commentUserDao;
 	
 	@RequestMapping("/updateCart")
 	public String updateCart(
@@ -123,6 +128,13 @@ public class ShopController {
 		model.addAttribute("brand", brandDao.getById(pro.getBrandId()).getBrandName());
 		model.addAttribute("energy", energyDao.getById(pro.getEnergyId()).getEnergyName());
 		model.addAttribute("material", materialDao.getById(pro.getMaterialId()).getMaterialName());
+		
+//		List<CommentUser> commentUserList = commentUserDao.getByProductId(productId);
+//		for(final CommentUser item: commentUserList) {
+//			if(item.getReplyFrom() != null) {
+//				
+//			}
+//		}
 		
 		return "user/product-detail";
 	}
