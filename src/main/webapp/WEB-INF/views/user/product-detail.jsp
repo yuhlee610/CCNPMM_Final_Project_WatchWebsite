@@ -1,10 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 
 <c:if test="${not empty message}">
-	<script>alert("${message}")</script>
+	<script>
+		alert("${message}")
+	</script>
 </c:if>
 <%
-	request.getSession().setAttribute("message", "");
+request.getSession().setAttribute("message", "");
 %>
 
 <!-- Hero Area Start-->
@@ -28,24 +30,23 @@
 		<div class="row justify-content-center">
 			<div class="col-lg-12">
 				<div class="single_product_img d-flex justify-content-center">
-					<img src="${product.getImage() }" alt="#"
-						class="img-fluid">
+					<img src="${product.getImage() }" alt="#" class="img-fluid">
 				</div>
 			</div>
 			<div class="col-lg-8">
 				<div class="single_product_text text-center">
-					<h3>
-						${product.getName() }
-					</h3>
-					<p>${product.getDescription() }</p>
+					<h3>${product.getName() }</h3>
+					<p>Brand: ${brand}</p>
+					<p>Material: ${material}</p>
+					<p>Energy: ${energy}</p>
+					<p>${product.getDecription() }</p>
 					<form class="card_area" method="get" action="addItemToCart">
-						<input type="hidden" value="${product.getId()}" name="productId"/>
+						<input type="hidden" value="${product.getId()}" name="productId" />
 						<div class="product_count_area">
 							<p>Quantity</p>
 							<div class="product_count d-inline-block">
 								<span class="product_count_item inumber-decrement"> <i
-									class="ti-minus"></i></span> <input
-									name="quantity"
+									class="ti-minus"></i></span> <input name="quantity"
 									class="product_count_item input-number" type="text" value="1"
 									min="1" max="${product.getAmount() }"> <span
 									class="product_count_item number-increment"> <i
@@ -57,6 +58,57 @@
 							<button class="btn_3">Add to cart</button>
 						</div>
 					</form>
+				</div>
+				<div class="row mt-4 mb-4">
+					<div class="avatar col-2 text-center">
+						<img class="rounded-circle" width="55%"
+							src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"
+							alt="" />
+					</div>
+					<div class="col-10">
+						<div style="color: #777">Start aligned text on viewports
+							sized SM (small) or wider.</div>
+						<p>Date</p>
+						<div style="color: #0d6efd; cursor: pointer">Reply</div>
+						<div class="row mt-4 mb-4">
+							<div class="avatar col-2 text-center">
+								<img class="rounded-circle" width="55%"
+									src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"
+									alt="" />
+							</div>
+							<div class="col-10">
+								<div style="color: #777">Start aligned text on viewports
+									sized SM (small) or wider.</div>
+								<p>Date</p>
+								<div style="color: #0d6efd; cursor: pointer">Reply</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4 mb-4">
+					<div class="avatar col-2 text-center">
+						<img class="rounded-circle" width="55%"
+							src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"
+							alt="" />
+					</div>
+					<div class="col-10">
+						<div style="color: #777">Start aligned text on viewports
+							sized SM (small) or wider.</div>
+						<p>Date</p>
+						<div style="color: #0d6efd; cursor: pointer">Reply</div>
+					</div>
+				</div>
+				<div class="add_comment">
+					<div class="row mb-2">
+						<div class="avatar col-2 text-center">
+							<img class="rounded-circle" width="55%"
+								src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"
+								alt="" />
+						</div>
+						<textarea class="col-10" cols="60" rows="4"></textarea>
+					</div>
+					<button style="padding: 12px 16px; background-color: #007bff"
+						class="button float-right">Submit</button>
 				</div>
 			</div>
 		</div>

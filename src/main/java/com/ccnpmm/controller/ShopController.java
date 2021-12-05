@@ -17,6 +17,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.ccnpmm.dao.BrandDAO;
 import com.ccnpmm.dao.CartDAO;
 import com.ccnpmm.dao.DetailCartDAO;
+import com.ccnpmm.dao.EnergyDAO;
+import com.ccnpmm.dao.MaterialDAO;
 import com.ccnpmm.dao.ProductDAO;
 import com.ccnpmm.dao.UserDAO;
 import com.ccnpmm.entity.Brand;
@@ -30,6 +32,12 @@ import com.ccnpmm.entity.User;
 public class ShopController {
 	@Autowired
 	private BrandDAO brandDao;
+	
+	@Autowired
+	private EnergyDAO energyDao;
+	
+	@Autowired
+	private MaterialDAO materialDao;
 
 	@Autowired
 	private ProductDAO productDao;
@@ -111,6 +119,10 @@ public class ShopController {
 		
 		String message = (String) request.getSession().getAttribute("message");
 		model.addAttribute("message", message);
+		
+		model.addAttribute("brand", brandDao.getById(pro.getBrandId()).getBrandName());
+		model.addAttribute("energy", energyDao.getById(pro.getEnergyId()).getEnergyName());
+		model.addAttribute("material", materialDao.getById(pro.getMaterialId()).getMaterialName());
 		
 		return "user/product-detail";
 	}

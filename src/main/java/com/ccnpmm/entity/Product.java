@@ -12,8 +12,7 @@ public class Product {
 	private Integer amount;
 	private float price;
 	private String image;
-	@Column(name = "Decription")
-	private String description;
+	private String decription;
 	private Integer sold;
 	private Integer brandId;
 	private Integer energyId;
@@ -23,7 +22,7 @@ public class Product {
 		super();
 	}
 
-	public Product(String id, String name, Integer amount, float price, String image, String description, Integer sold,
+	public Product(String id, String name, Integer amount, float price, String image, String decription, Integer sold,
 			Integer brandId, Integer energyId, Integer materialId) {
 		super();
 		this.id = id;
@@ -86,12 +85,12 @@ public class Product {
 		this.image = image;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDecription() {
+		return decription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDecription(String decription) {
+		this.decription = decription;
 	}
 
 	public Integer getSold() {
