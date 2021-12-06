@@ -17,14 +17,14 @@ public class CommentUserDAO {
 	protected JdbcTemplate jdbc;
 	
 	public List<CommentUser> getByProductId(Serializable id) {
-		String sql = "select * from Comment, [User] where Comment.UserId = [User].Id and ProductId = ?";
+		String sql = "select Comment.Id, Comment.Content, Comment.Date, Comment.ProductId, Comment.ReplyFrom, Comment.UserId, [User].Username, [User].Avatar from Comment, [User] where Comment.UserId = [User].Id and ProductId = ?";
 		return jdbc.query(sql, getRowMapper(), id);
 	}
 	
-//	public CommentUser getReply(Serializable id) {
-//		String sql = "select * from Comment, [User] where Comment.Id = ?";
-//		return jdbc.query(sql, getRowMapper(), id);
-//	}
+	public List<CommentUser> getReply(Serializable id, Serializable productId) {
+		String sql = "select Comment.Id, Comment.Content, Comment.Date, Comment.ProductId, Comment.ReplyFrom, Comment.UserId, [User].Username, [User].Avatar from Comment, [User] where ReplyFrom = ? and ProductId = ? and Comment.UserId = [User].Id";
+		return jdbc.query(sql, getRowMapper(), id, productId);
+	}
 	
 	private RowMapper<CommentUser> getRowMapper() {
 		return new BeanPropertyRowMapper<CommentUser>(CommentUser.class);

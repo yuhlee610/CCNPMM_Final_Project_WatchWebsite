@@ -59,45 +59,46 @@ request.getSession().setAttribute("message", "");
 						</div>
 					</form>
 				</div>
-				<div class="row mt-4 mb-4">
-					<div class="avatar col-2 text-center">
-						<img class="rounded-circle" width="55%"
-							src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"
-							alt="" />
-					</div>
-					<div class="col-10">
-						<div style="color: #777">Start aligned text on viewports
-							sized SM (small) or wider.</div>
-						<p>Date</p>
-						<div style="color: #0d6efd; cursor: pointer">Reply</div>
-						<div class="row mt-4 mb-4">
-							<div class="avatar col-2 text-center">
+
+				<c:forEach var="comment" items="${comments}">
+					<div class="comment row mt-4 mb-4">
+						<div class="avatar col-2 text-center">
+							<c:if test="${not empty reply.getAvatar() }">
 								<img class="rounded-circle" width="55%"
-									src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"
-									alt="" />
-							</div>
-							<div class="col-10">
-								<div style="color: #777">Start aligned text on viewports
-									sized SM (small) or wider.</div>
-								<p>Date</p>
-								<div style="color: #0d6efd; cursor: pointer">Reply</div>
-							</div>
+									src="${reply.getAvatar() }" alt="" />
+							</c:if>
+							<c:if test="${empty reply.getAvatar() }">
+								<img class="rounded-circle" width="55%"
+									src="https://joeschmoe.io/api/v1/random" alt="" />
+							</c:if>
+						</div>
+						<div class="col-10">
+							<div style="color: #777">${comment.getContent() }</div>
+							<p>${comment.getDate()}</p>
+							<div style="color: #0d6efd; cursor: pointer">Reply</div>
+							<c:forEach var="reply" items="${comment.getReplyList() }">
+								<div class="comment row mt-4 mb-4">
+									<div class="avatar col-2 text-center">
+										<c:if test="${not empty reply.getAvatar() }">
+											<img class="rounded-circle" width="55%"
+												src="${reply.getAvatar() }" alt="" />
+										</c:if>
+										<c:if test="${empty reply.getAvatar() }">
+											<img class="rounded-circle" width="55%"
+												src="https://joeschmoe.io/api/v1/random" alt="" />
+										</c:if>
+									</div>
+									<div class="col-10">
+										<div style="color: #777">${reply.getContent() }</div>
+										<p>${reply.getDate()}</p>
+										<div style="color: #0d6efd; cursor: pointer">Reply</div>
+									</div>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
-				</div>
-				<div class="row mt-4 mb-4">
-					<div class="avatar col-2 text-center">
-						<img class="rounded-circle" width="55%"
-							src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"
-							alt="" />
-					</div>
-					<div class="col-10">
-						<div style="color: #777">Start aligned text on viewports
-							sized SM (small) or wider.</div>
-						<p>Date</p>
-						<div style="color: #0d6efd; cursor: pointer">Reply</div>
-					</div>
-				</div>
+				</c:forEach>
+
 				<div class="add_comment">
 					<div class="row mb-2">
 						<div class="avatar col-2 text-center">

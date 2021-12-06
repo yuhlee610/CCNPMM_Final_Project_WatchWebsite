@@ -1,22 +1,21 @@
 package com.ccnpmm.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class CommentUser extends Comment {
 	private String avatar;
 	private String username;
-	private Comment reply;
+	private List<CommentUser> replyList;
+
+	public CommentUser() { }
 
 	public CommentUser(Integer id, Integer userId, String productId, String content, Date date, Integer replyFrom,
-			String avatar, String username, Comment reply) {
+			String avatar, String username, List<CommentUser> replyList) {
 		super(id, userId, productId, content, date, replyFrom);
 		this.avatar = avatar;
 		this.username = username;
-		this.reply = reply;
-	}
-
-	public CommentUser(Integer id, Integer userId, String productId, String content, Date date, Integer replyFrom) {
-		super(id, userId, productId, content, date, replyFrom);
+		this.replyList = replyList;
 	}
 
 	public String getAvatar() {
@@ -35,11 +34,11 @@ public class CommentUser extends Comment {
 		this.username = username;
 	}
 
-	public Comment getReply() {
-		return reply;
+	public List<CommentUser> getReplyList() {
+		return replyList;
 	}
 
-	public void setReply(Comment reply) {
-		this.reply = reply;
+	public void setReplyList(List<CommentUser> replyList) {
+		this.replyList = replyList;
 	}
 }
