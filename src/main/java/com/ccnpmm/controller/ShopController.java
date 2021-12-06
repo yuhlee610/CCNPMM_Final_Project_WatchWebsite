@@ -55,7 +55,7 @@ public class ShopController {
 		model.addAttribute("energy", energyDao.getById(pro.getEnergyId()).getEnergyName());
 		model.addAttribute("material", materialDao.getById(pro.getMaterialId()).getMaterialName());
 		
-		List<CommentUser> commentUserList = commentUserDao.getByProductId(productId);
+		List<CommentUser> commentUserList = commentUserDao.getCommentByProductId(productId);
 		for(final CommentUser item: commentUserList) {
 			List<CommentUser> replyList = commentUserDao.getReply(item.getId(), productId);
 			if(replyList.size() != 0) {

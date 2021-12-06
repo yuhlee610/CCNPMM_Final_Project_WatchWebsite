@@ -17,7 +17,7 @@ public class CommentDAO {
 	protected JdbcTemplate jdbc;
 
 	public void insert(Comment entity) {
-		String sql = "INSERT INTO Comment (UserId, ProducId, Content, Date, ReplyFrom) VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO Comment (UserId, ProductId, Content, Date, ReplyFrom) VALUES (?,?,?,?,?)";
 		jdbc.update(sql, entity.getUserId(), entity.getProductId(), entity.getContent(), entity.getDate(),
 				entity.getReplyFrom());
 	}
