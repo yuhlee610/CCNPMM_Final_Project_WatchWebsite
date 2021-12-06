@@ -40,7 +40,7 @@ public class UserController {
 		}
 		
 		User user = userDAO.getById(userId);
-		String birthdayStr = user.getBirthday();
+		String birthdayStr = user.getBirthday().toString();
 		SimpleDateFormat StringToDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		Date birthdayDate = null;
 		try {
@@ -57,7 +57,7 @@ public class UserController {
         else if( flagAlert == 0) {
         	model.addAttribute("message", "");
         }
-        user.setBirthday(birthday);
+        //user.setBirthday(birthday);
 		model.addAttribute("user", user);
 		return "user/profile";
 	}
