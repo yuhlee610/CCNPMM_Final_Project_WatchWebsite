@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="resources/assets/img/favicon.ico">
 
     <!-- CSS here -->
         <link rel="stylesheet" href="resources/assets/css/bootstrap.min.css">
@@ -26,7 +26,6 @@
 </head>
 <body>
     <main>
-        <!-- Hero Area End-->
         <!--================login_part Area =================-->
         <section class="login_part" style = "padding : 50px">
             <div class="container">
@@ -46,14 +45,14 @@
                             <div class="login_part_form_iner">
                                 <h3>Welcome Back ! <br>
                                     Please Sign in now</h3>
-                                <form class="row contact_form" action="login" method="post" novalidate="novalidate" modelAttrbute="user">
+                                <form class="row contact_form" action="login" method="post" modelAttrbute="user">
                                     <div class="col-md-12 form-group p_star">
-                                        <input type="text" class="form-control" id="username" name="username" value=""
-                                            placeholder="Username">
+                                        <input type="text" class="form-control" id="username" name="username" value="${user.username}"
+                                            placeholder="Username" required>
                                     </div>
                                     <div class="col-md-12 form-group p_star">
-                                        <input type="password" class="form-control" id="password" name="password" value=""
-                                            placeholder="Password">
+                                        <input type="password" class="form-control" id="password" name="password" value="${user.password}"
+                                            placeholder="Password" required>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <div class="creat_account d-flex align-items-center">
@@ -171,39 +170,42 @@
     <!-- Search model end -->
     
     <!-- JS here -->
+    <script>
+    if("${errors}" != "") alert("${errors}");
+    </script>
 
-    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="./resources/assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
-    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./resources/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./resources/assets/js/popper.min.js"></script>
+    <script src="./resources/assets/js/bootstrap.min.js"></script>
     <!-- Jquery Mobile Menu -->
-    <script src="./assets/js/jquery.slicknav.min.js"></script>
+    <script src="/resources/assets/js/jquery.slicknav.min.js"></script>
 
     <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="./assets/js/owl.carousel.min.js"></script>
-    <script src="./assets/js/slick.min.js"></script>
+    <script src="./resources/assets/js/owl.carousel.min.js"></script>
+    <script src="./resources/assets/js/slick.min.js"></script>
 
     <!-- One Page, Animated-HeadLin -->
-    <script src="./assets/js/wow.min.js"></script>
-    <script src="./assets/js/animated.headline.js"></script>
+    <script src="./resources/assets/js/wow.min.js"></script>
+    <script src="./resources/assets/js/animated.headline.js"></script>
     
     <!-- Scroll up, nice-select, sticky -->
-    <script src="./assets/js/jquery.scrollUp.min.js"></script>
-    <script src="./assets/js/jquery.nice-select.min.js"></script>
-    <script src="./assets/js/jquery.sticky.js"></script>
-    <script src="./assets/js/jquery.magnific-popup.js"></script>
+    <script src="./resources/assets/js/jquery.scrollUp.min.js"></script>
+    <script src="./resources/assets/js/jquery.nice-select.min.js"></script>
+    <script src="./resources/assets/js/jquery.sticky.js"></script>
+    <script src="./resources/assets/js/jquery.magnific-popup.js"></script>
 
     <!-- contact js -->
-    <script src="./assets/js/contact.js"></script>
-    <script src="./assets/js/jquery.form.js"></script>
-    <script src="./assets/js/jquery.validate.min.js"></script>
-    <script src="./assets/js/mail-script.js"></script>
-    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="./resources/assets/js/contact.js"></script>
+    <script src="./resources/assets/js/jquery.form.js"></script>
+    <script src="./resources/assets/js/jquery.validate.min.js"></script>
+    <script src="./resources/assets/js/mail-script.js"></script>
+    <script src="./resources/assets/js/jquery.ajaxchimp.min.js"></script>
     
     <!-- Jquery Plugins, main Jquery -->	
-    <script src="./assets/js/plugins.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script src="./resources/assets/js/plugins.js"></script>
+    <script src="./resources/assets/js/main.js"></script>
 
 </body>
     

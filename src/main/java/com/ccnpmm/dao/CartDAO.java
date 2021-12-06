@@ -15,18 +15,18 @@ import com.ccnpmm.entity.Cart;
 public class CartDAO {
 	@Autowired
 	protected JdbcTemplate jdbc;
-	
+
 	public void insert(Cart entity) {
-		String sql = "INSERT INTO Cart (UserId, ProducId, Count) VALUES (?,?,?)";
-		jdbc.update(sql, entity.getUser().getId(), entity.getProduct().getId(), entity.getCount());
+		String sql = "INSERT INTO Cart (UserId, ProductId, Count) VALUES (?,?,?)";
+		jdbc.update(sql, entity.getUserId(), entity.getProductId(), entity.getCount());
 	}
-	
+
 	public void update(Cart entity) {
-		String sql = "UPDATE User SET Count=? WHERE UserId=? and ProductId=?";
-		jdbc.update(sql, entity.getCount(), entity.getUser().getId(), entity.getProduct().getId());
+		String sql = "UPDATE Cart SET Count=? WHERE UserId=? and ProductId=?";
+		jdbc.update(sql, entity.getCount(), entity.getUserId(), entity.getProductId());
 	}
-	
-	public void delete(Serializable userId, Serializable productId ) {
+
+	public void delete(Serializable userId, Serializable productId) {
 		String sql = "DELETE FROM Cart WHERE UserId=? and ProductId=?";
 		jdbc.update(sql, userId, productId);
 	}
@@ -36,12 +36,17 @@ public class CartDAO {
 		return jdbc.queryForObject(sql, getRowMapper(), userId);
 	}
 
+	public Cart getByUserAndProduct(Serializable userId, Serializable productId) {
+		String sql = "SELECT * FROM Cart WHERE UserId=? and ProductId=?";
+		return jdbc.queryForObject(sql, getRowMapper(), userId, productId);
+	}
+
 	public List<Cart> getAll() {
 		String sql = "SELECT * FROM Cart";
 		return getBySql(sql);
 	}
 
-	protected List<Cart> getBySql(String sql) {
+	public List<Cart> getBySql(String sql) {
 		return jdbc.query(sql, getRowMapper());
 	}
 

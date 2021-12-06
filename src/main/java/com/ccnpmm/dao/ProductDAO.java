@@ -18,17 +18,16 @@ public class ProductDAO {
 
 	public void insert(Product entity) {
 		String sql = "INSERT INTO Product (Id, Name, Amount, Price, Image, Decription, Sold, BrandId, EnergyId, MaterialId) VALUES (?,?,?,?,?,?,?,?,?,?)";
-		jdbc.update(sql, entity.getId(), entity.getName(), entity.getAmount(), entity.getPrice(), 
-				entity.getPrice(), entity.getImage(), entity.getDescription(), entity.getSold(), 
-				entity.getBrand().getBrandId(), entity.getEnergy().getEnergyId(), entity.getMaterial().getMaterialId());
+		jdbc.update(sql, entity.getId(), entity.getName(), entity.getAmount(), entity.getPrice(), entity.getPrice(),
+				entity.getImage(), entity.getDecription(), entity.getSold(), entity.getBrandId(), entity.getEnergyId(),
+				entity.getMaterialId());
 	}
 
 	public void update(Product entity) {
-		String sql = "UPDATE Product SET Name=?, Amount=?, Price=?, Image=?, Decription=?, Sold=?, BrandId=?, EnergyId=?, MaterialId=? WHERE Id=?";
-		jdbc.update(sql, entity.getName(), entity.getAmount(), entity.getPrice(), 
-				entity.getPrice(), entity.getImage(), entity.getDescription(), entity.getSold(), 
-				entity.getBrand().getBrandId(), entity.getEnergy().getEnergyId(), 
-				entity.getMaterial().getMaterialId(), entity.getId());
+		String sql = "UPDATE Product SET Name=?, Amount=?, Price=?, Image=?, Description=?, Sold=?, BrandId=?, EnergyId=?, MaterialId=? WHERE Id=?";
+		jdbc.update(sql, entity.getName(), entity.getAmount(), entity.getPrice(), entity.getPrice(), entity.getImage(),
+				entity.getDecription(), entity.getSold(), entity.getBrandId(), entity.getEnergyId(),
+				entity.getMaterialId(), entity.getId());
 	}
 
 	public void delete(Serializable id) {
@@ -36,7 +35,7 @@ public class ProductDAO {
 		jdbc.update(sql, id);
 	}
 
-	public Product getById(Serializable id) {
+	public Product getById(String id) {
 		String sql = "SELECT * FROM Product WHERE Id=?";
 		return jdbc.queryForObject(sql, getRowMapper(), id);
 	}
@@ -46,7 +45,7 @@ public class ProductDAO {
 		return getBySql(sql);
 	}
 
-	protected List<Product> getBySql(String sql) {
+	public List<Product> getBySql(String sql) {
 		return jdbc.query(sql, getRowMapper());
 	}
 

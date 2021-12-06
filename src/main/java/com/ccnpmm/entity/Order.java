@@ -1,16 +1,11 @@
 package com.ccnpmm.entity;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Order {
@@ -33,16 +28,14 @@ public class Order {
 	private String phone;
 	@Column(name = "DeliveryStatus")
 	private String deliveryStatus;
-	@ManyToOne
-	@JoinColumn(name = "UserId")
-	private User user;
-	
+	private Integer userId;
 
-	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-	private Collection<OrderDetail> orderDetails;
-	
+	public Order() {
+		super();
+	}
+
 	public Order(Integer orderId, String code, Date orderDate, Double total, String address, String name, String phone,
-			String deliveryStatus, User user, Collection<OrderDetail> orderDetails) {
+			String deliveryStatus, Integer userId) {
 		super();
 		this.orderId = orderId;
 		this.code = code;
@@ -52,22 +45,9 @@ public class Order {
 		this.name = name;
 		this.phone = phone;
 		this.deliveryStatus = deliveryStatus;
-		this.user = user;
-		this.orderDetails = orderDetails;
+		this.userId = userId;
 	}
 
-	public Order() {
-		super();
-		
-	}
-	
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -132,13 +112,12 @@ public class Order {
 		this.deliveryStatus = deliveryStatus;
 	}
 
-	public Collection<OrderDetail> getOrderDetails() {
-		return orderDetails;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setOrderDetails(Collection<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	
 }

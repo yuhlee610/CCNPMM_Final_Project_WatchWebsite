@@ -35,6 +35,7 @@ public class AccountController {
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login(ModelMap model) {
 		model.addAttribute("user", new User());
+		model.addAttribute("errors","");
 		return "account/login";
 	}
 
@@ -44,7 +45,9 @@ public class AccountController {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request ,ModelMap model, @ModelAttribute("user") User user) {
 		try {
+			
 			String username = user.getUsername();
+			if(username.equals("") ) model.addAttribute("errors","");
 			User cust = userDao.getByUsername(username);
 			if (cust.getPassword().equals(user.getPassword()) && cust.isState()) {
 				
@@ -55,6 +58,9 @@ public class AccountController {
 				
 				//get roleName
 				String roleName = getRoleName(cust.getRoleId());
+				if(roleName != null) {
+					session.setAttribute("role", roleName);
+				}
 				
 				
 				if(roleName.equals("User")) {
@@ -66,11 +72,11 @@ public class AccountController {
 				
 				
 			} else {
-				model.addAttribute("errors", "Sai mật khẩu !");
+				model.addAttribute("errors", "Tên đăng nhập hoặc mật khẩu không hợp lệ!");
 			}
 		}
 		catch( Exception e) {
-			model.addAttribute("errors", "Sai mật khẩu !");
+			model.addAttribute("errors", "Tên đăng nhập hoặc mật khẩu không hợp lệ!");
 		}
 		
 		return "account/login";
@@ -79,7 +85,7 @@ public class AccountController {
 	@RequestMapping("getRoleName")
 	public String getRoleName(Serializable idRole) {
 		String roleName = "";
-		Role role = roleDAO.getRole(idRole);
+		Role role = roleDAO.getById(idRole);
 		roleName = role.getRoleName();
 		return roleName;
 	}

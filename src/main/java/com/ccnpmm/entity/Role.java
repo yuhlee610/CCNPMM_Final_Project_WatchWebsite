@@ -1,27 +1,32 @@
 package com.ccnpmm.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name ="Role")
 public class Role {
 	@Id
-	@Column(name ="RoleId")
-	private int roleId;
-	
-	
-	@Column(name ="RoleName")
-	private String roleName;
-	
+	@GeneratedValue
+	private Integer roleId;
 
-	public int getRoleId() {
+	private String roleName;
+
+	public Role() {
+		super();
+	}
+
+	public Role(Integer roleId, String roleName) {
+		super();
+		this.roleId = roleId;
+		this.roleName = roleName;
+	}
+
+	public Integer getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(int roleId) {
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 
@@ -31,6 +36,5 @@ public class Role {
 
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
-	}	
-	
+	}
 }
