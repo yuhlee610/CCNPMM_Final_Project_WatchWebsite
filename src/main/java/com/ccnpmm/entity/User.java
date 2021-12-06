@@ -43,7 +43,6 @@ public class User {
 	private String avatar;
 	private Integer roleId;
 
-
 	public User() {
 		super();
 	}

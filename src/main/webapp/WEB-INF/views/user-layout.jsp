@@ -1,5 +1,6 @@
 <%@ page pageEncoding="utf-8"%>
-<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -21,11 +22,59 @@
 <link rel="stylesheet" href="resources/assets/css/animate.min.css">
 <link rel="stylesheet" href="resources/assets/css/magnific-popup.css">
 <link rel="stylesheet"
+	href="./resources/assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="resources/assets/css/flaticon.css">
+<link rel="stylesheet" href="resources/assets/css/slicknav.css">
+<link rel="stylesheet" href="resources/assets/css/animate.min.css">
+<link rel="stylesheet" href="resources/assets/css/magnific-popup.css">
+<link rel="stylesheet"
 	href="resources/assets/css/fontawesome-all.min.css">
 <link rel="stylesheet" href="resources/assets/css/themify-icons.css">
 <link rel="stylesheet" href="resources/assets/css/slick.css">
 <link rel="stylesheet" href="resources/assets/css/nice-select.css">
 <link rel="stylesheet" href="resources/assets/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+
+<style>
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  border: 2px solid #ddd;
+  display: inline-flex;
+}
+
+.number-input,
+.number-input * {
+  box-sizing: border-box;
+}
+
+.number-input div {
+  outline:none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  color: #415094;
+  font-size: 20px;
+  text-align: center;
+}
+
+</style>
 </head>
 
 <body>
@@ -57,8 +106,8 @@
 						<div class="main-menu d-none d-lg-block">
 							<nav>
 								<ul id="navigation">
-									<li><a href="index.html">Home</a></li>
-									<li><a href="shop.html">shop</a></li>
+									<li><a href="<c:url value="/" />">Home</a></li>
+									<li><a href="<c:url value="/shop" />">shop</a></li>
 									<li><a href="about.html">about</a></li>
 									<li class="hot"><a href="#">Latest</a>
 										<ul class="submenu">
@@ -73,7 +122,7 @@
 									<li><a href="#">Pages</a>
 										<ul class="submenu">
 											<li><a href="login.html">Login</a></li>
-											<li><a href="cart">Cart</a></li>
+											<li><a href="<c:url value="/cartList" />">Cart</a></li>
 											<li><a href="elements.html">Element</a></li>
 											<li><a href="confirmation.html">Confirmation</a></li>
 											<li><a href="checkout.html">Product Checkout</a></li>
@@ -96,7 +145,7 @@
 									</div>
 								</li>
 								<li><a href="login.html"><span class="flaticon-user"></span></a></li>
-								<li><a href="cart"><span
+								<li><a href="<c:url value="/cartList" />"><span
 										class="flaticon-shopping-cart"></span></a></li>
 							</ul>
 						</div>
@@ -215,8 +264,8 @@
 	<div class="search-model-box">
 		<div class="h-100 d-flex align-items-center justify-content-center">
 			<div class="search-close-btn">+</div>
-			<form class="search-model-form">
-				<input type="text" id="search-input"
+			<form method="get" action="search" class="search-model-form">
+				<input type="text" id="search-input" name="search"
 					placeholder="Searching key.....">
 			</form>
 		</div>
@@ -259,24 +308,53 @@
 	<script src="resources/assets/js/main.js"></script>
 
 	<script>
-		$("#register-form").validate({
-			rules : {
-				username : "required",
-				password : "required",
-				name : "required",
-				address : "required",
-				email : "required",
-				confirmPassword : {
-					equalTo : "#password",
-					required : true
-				},
-				phone : {
-					matches : "[0-9]+",
-					minlength : 10,
-					required : true
+		$(document).ready(function() {
+			jQuery.validator.addMethod("phonenu", function(value, element) {
+				if (/^\d{3}-?\d{3}-?\d{4}$/g.test(value)) {
+					return true;
+				} else {
+					return false;
 				}
+				;
+			}, "Invalid phone number");
+
+			$("#register-form").validate({
+				rules : {
+					username : "required",
+					password : "required",
+					name : "required",
+					address : "required",
+					email : "required",
+					confirmPassword : {
+						equalTo : "#password",
+						required : true
+					},
+					phone : {
+						phonenu : true,
+						required : true
+					}
+				}
+			});
+		})
+
+		let url = window.location.href
+		let query = ''
+		let itemsPerPage = 12
+		if (url.slice(-4) === 'shop') {
+			query = '?viewMore='
+		} else {
+			query = '&viewMore='
+			if (url.includes('viewMore')) {
+				query = '?viewMore='
 			}
-		});
+		}
+		if (url.includes('viewMore')) {
+			itemsPerPage = parseInt(url.substr(url.indexOf('viewMore') + 6,
+					url.length - 1))
+			itemsPerPage = itemsPerPage + 10
+			url = url.slice(0, url.indexOf('viewMore') - 1)
+		}
+		$("#view_more").attr("href", url + query + itemsPerPage)
 	</script>
 </body>
 </html>

@@ -51,6 +51,7 @@ public class BrandDAO {
 		return jdbc.queryForObject(sql, getRowMapper(),name);
 		
 	}
+	
 	private RowMapper<Brand> getRowMapper() {
 		return new BeanPropertyRowMapper<Brand>(Brand.class);
 	}

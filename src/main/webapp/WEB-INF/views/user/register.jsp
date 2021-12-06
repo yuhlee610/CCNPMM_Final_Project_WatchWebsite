@@ -4,7 +4,7 @@
 			<div class="col-lg-6 col-md-6">
 				<div class="login_part_text text-center">
 					<div class="login_part_text_iner">
-						<h2>You already have an account!</h2>
+						<h2>You already have had an account!</h2>
 						<p>Let's watch our store. We will try our best to serve you.</p>
 						<a href="#" class="btn_3">Login</a>
 					</div>
@@ -16,7 +16,8 @@
 						<h3>
 							Welcome Back ! <br> Please Sign up now
 						</h3>
-						<form id="register-form" class="row contact_form" action="#" method="post"
+						<h4>${message }</h4>
+						<form id="register-form" class="row contact_form" action="register" method="post" modelAttribute="user" 
 							novalidate="novalidate">
 							<div class="col-md-12 form-group p_star">
 								<input type="text" class="form-control" id="username" name="username" minlength="4" maxlength="20"

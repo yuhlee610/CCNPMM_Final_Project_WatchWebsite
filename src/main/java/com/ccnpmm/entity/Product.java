@@ -12,7 +12,6 @@ public class Product {
 	private Integer amount;
 	private float price;
 	private String image;
-	@Column(name = "Decription")
 	private String decription;
 	private Integer sold;
 	private Integer brandId;
@@ -50,7 +49,7 @@ public class Product {
 		super();
 	}
 
-	public Product(String id, String name, Integer amount, float price, String image, String description, Integer sold,
+	public Product(String id, String name, Integer amount, float price, String image, String decription, Integer sold,
 			Integer brandId, Integer energyId, Integer materialId) {
 		super();
 		this.id = id;
@@ -58,7 +57,7 @@ public class Product {
 		this.amount = amount;
 		this.price = price;
 		this.image = image;
-		this.decription = description;
+		this.decription = decription;
 		this.sold = sold;
 		this.brandId = brandId;
 		this.energyId = energyId;
