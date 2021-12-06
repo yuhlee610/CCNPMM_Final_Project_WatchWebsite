@@ -1,21 +1,14 @@
 package com.ccnpmm.entity;
 
-
-import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 @Table
 public class Comment {
@@ -23,27 +16,27 @@ public class Comment {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	
-	@ManyToOne
-	@JoinColumn(name = "UserId")
-	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name = "ProductId")
-	private Product product;
-	
+	private Integer userId;
+	private String productId;
 	private String content;
-	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date date;
-	
-	@ManyToOne
-	@JoinColumn(name = "ReplyFrom")
-	private Comment comment;
-	
-	@OneToMany(mappedBy = "comment", fetch = FetchType.EAGER)
-	private Collection<Comment> comments;
+	private Integer replyFrom;
+
+	public Comment(Integer id, Integer userId, String productId, String content, Date date, Integer replyFrom) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.productId = productId;
+		this.content = content;
+		this.date = date;
+		this.replyFrom = replyFrom;
+	}
+
+	public Comment() {
+		super();
+	}
 
 	public Integer getId() {
 		return id;
@@ -53,20 +46,20 @@ public class Comment {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public Product getProduct() {
-		return product;
+	public String getProductId() {
+		return productId;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 
 	public String getContent() {
@@ -85,21 +78,11 @@ public class Comment {
 		this.date = date;
 	}
 
-	public Comment getComment() {
-		return comment;
+	public Integer getReplyFrom() {
+		return replyFrom;
 	}
 
-	public void setComment(Comment comment) {
-		this.comment = comment;
+	public void setReplyFrom(Integer replyFrom) {
+		this.replyFrom = replyFrom;
 	}
-
-	public Collection<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(Collection<Comment> comments) {
-		this.comments = comments;
-	}
-	
-	
 }

@@ -1,42 +1,39 @@
 package com.ccnpmm.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
-@IdClass(CartUser.class)
 public class Cart {
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "UserId")
-	private User user;
-	
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "ProductId")
-	private Product product;
-	
-	@Column(name = "Count")
+	private Integer userId;
+	private String productId;
 	private Integer count;
 
-	public User getUser() {
-		return user;
+	public Cart() {
+		super();
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public Cart(Integer userId, String productId, Integer count) {
+		super();
+		this.userId = userId;
+		this.productId = productId;
+		this.count = count;
 	}
 
-	public Product getProduct() {
-		return product;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 
 	public Integer getCount() {
@@ -46,5 +43,4 @@ public class Cart {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-
 }
