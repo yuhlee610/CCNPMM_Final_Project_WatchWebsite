@@ -1,6 +1,8 @@
 package com.ccnpmm.entity;
 
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,18 +37,19 @@ public class User {
 	private String phone;
 
 	@Column(name = "Birthday")
-	private String birthday;
+	private Date birthday;
 
 	@Column(name = "Avatar")
 	private String avatar;
 	private Integer roleId;
+
 
 	public User() {
 		super();
 	}
 
 	public User(Integer id, String username, String password, String email, String name, String address, boolean state,
-			String phone, String birthday, String avatar, Integer roleId) {
+			String phone, Date birthday, String avatar, Integer roleId) {
 		super();
 		Id = id;
 		this.username = username;
@@ -125,11 +128,11 @@ public class User {
 		this.phone = phone;
 	}
 
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 

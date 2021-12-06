@@ -45,6 +45,13 @@ public class MaterialDAO {
 		return jdbc.query(sql, getRowMapper());
 	}
 
+	public Material getByName(String name)
+	{
+		String sql="SELECT * FROM Material WHERE MaterialName=?";
+		return jdbc.queryForObject(sql, getRowMapper(),name);
+		
+	}
+
 	private RowMapper<Material> getRowMapper() {
 		return new BeanPropertyRowMapper<Material>(Material.class);
 	}

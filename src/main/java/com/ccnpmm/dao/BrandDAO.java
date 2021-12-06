@@ -45,6 +45,12 @@ public class BrandDAO {
 		return jdbc.query(sql, getRowMapper());
 	}
 
+	public Brand getByName(String name)
+	{
+		String sql="SELECT * FROM Brand WHERE BrandName=?";
+		return jdbc.queryForObject(sql, getRowMapper(),name);
+		
+	}
 	private RowMapper<Brand> getRowMapper() {
 		return new BeanPropertyRowMapper<Brand>(Brand.class);
 	}

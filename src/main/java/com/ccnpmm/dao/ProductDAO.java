@@ -24,7 +24,7 @@ public class ProductDAO {
 	}
 
 	public void update(Product entity) {
-		String sql = "UPDATE Product SET Name=?, Amount=?, Price=?, Image=?, Description=?, Sold=?, BrandId=?, EnergyId=?, MaterialId=? WHERE Id=?";
+		String sql = "UPDATE Product SET Name=?, Amount=?, Price=?, Image=?, Decription=?, Sold=?, BrandId=?, EnergyId=?, MaterialId=? WHERE Id=?";
 		jdbc.update(sql, entity.getName(), entity.getAmount(), entity.getPrice(), entity.getPrice(), entity.getImage(),
 				entity.getDecription(), entity.getSold(), entity.getBrandId(), entity.getEnergyId(),
 				entity.getMaterialId(), entity.getId());

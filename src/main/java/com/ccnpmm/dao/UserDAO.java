@@ -24,9 +24,13 @@ public class UserDAO {
 	}
 
 	public void update(User entity) {
-		String sql = "UPDATE [User] SET Name=?, Address=?, Phone=?, Birthday=?, Avatar=? WHERE Id=?";
+		String sql = "UPDATE [User] SET Name=?, Address=?, Phone=?, Birthday=?, Avartar=? WHERE Id=?";
 		jdbc.update(sql, entity.getName(), entity.getAddress(), entity.getPhone(), entity.getBirthday(),
 				entity.getAvatar(), entity.getId());
+	}
+	public void updateStatus(User entity) {
+		String sql = "UPDATE [User] SET State=? WHERE Id=?";
+		jdbc.update(sql, entity.isState(), entity.getId());
 	}
 
 	public void changePassword(User entity) {
@@ -35,7 +39,7 @@ public class UserDAO {
 	}
 
 	public void delete(Serializable id) {
-		String sql = "DELETE FROM User WHERE Id=?";
+		String sql = "DELETE FROM [User] WHERE Id=?";
 		jdbc.update(sql, id);
 	}
 
