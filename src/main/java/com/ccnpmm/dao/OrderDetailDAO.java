@@ -18,23 +18,24 @@ public class OrderDetailDAO {
 
 	public void insert(OrderDetail entity) {
 		String sql = "INSERT INTO OrderDetail (OrderId, ProductId, Count, Price, ProductName) VALUES (?,?,?,?,?)";
-		jdbc.update(sql, entity.getOrder().getOrderId(), entity.getProduct().getId(), entity.getCount(), entity.getPrice(), 
+		jdbc.update(sql, entity.getOrderId(), entity.getProductId(), entity.getCount(), entity.getPrice(),
 				entity.getProductName());
 	}
 
 	public void update(OrderDetail entity) {
 		String sql = "UPDATE OrderDetail SET Count=?, Price=?, ProductName=? WHERE OrderId=? and ProductId=?";
-		jdbc.update(sql, entity.getCount(), entity.getPrice(), 
-				entity.getProductName(),entity.getOrder().getOrderId(), entity.getProduct().getId());
-	}
-	public void delete(Serializable orderid,Serializable productid) {
-		String sql = "DELETE FROM OrderDetail WHERE OrderId=? and ProductId=?";
-		jdbc.update(sql, orderid,productid);
+		jdbc.update(sql, entity.getCount(), entity.getPrice(), entity.getProductName(), entity.getOrderId(),
+				entity.getProductId());
 	}
 
-	public OrderDetail getById(Serializable orderid,Serializable productid) {
+	public void delete(Serializable orderid, Serializable productid) {
+		String sql = "DELETE FROM OrderDetail WHERE OrderId=? and ProductId=?";
+		jdbc.update(sql, orderid, productid);
+	}
+
+	public OrderDetail getById(Serializable orderid, Serializable productid) {
 		String sql = "SELECT * FROM OrderDetail WHERE OrderId=? and ProductId=?";
-		return jdbc.queryForObject(sql, getRowMapper(), orderid,productid);
+		return jdbc.queryForObject(sql, getRowMapper(), orderid, productid);
 	}
 
 	public List<OrderDetail> getAll() {

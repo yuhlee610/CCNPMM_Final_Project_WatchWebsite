@@ -3,7 +3,6 @@ package com.ccnpmm.entity;
 import java.io.Serializable;
 
 public class OrderProduct implements Serializable{
-	private Order order;
-	private Product product;
-	  
+	private Integer orderId;
+	private String productId;
 }

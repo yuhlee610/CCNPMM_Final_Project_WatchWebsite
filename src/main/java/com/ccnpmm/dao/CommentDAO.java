@@ -15,18 +15,18 @@ import com.ccnpmm.entity.Comment;
 public class CommentDAO {
 	@Autowired
 	protected JdbcTemplate jdbc;
-	
+
 	public void insert(Comment entity) {
 		String sql = "INSERT INTO Comment (UserId, ProducId, Content, Date, ReplyFrom) VALUES (?,?,?,?,?)";
-		jdbc.update(sql, entity.getUser().getId(), entity.getProduct().getId(), 
-				entity.getContent(), entity.getDate(), entity.getComment().getId());
+		jdbc.update(sql, entity.getUserId(), entity.getProductId(), entity.getContent(), entity.getDate(),
+				entity.getReplyFrom());
 	}
-	
+
 	public void update(Comment entity) {
 		String sql = "UPDATE Comment SET Content=?, Date =? WHERE Id=?";
 		jdbc.update(sql, entity.getContent(), entity.getDate(), entity.getId());
 	}
-	
+
 	public void delete(Serializable id) {
 		String sql = "DELETE FROM Comment WHERE Id=?";
 		jdbc.update(sql, id);

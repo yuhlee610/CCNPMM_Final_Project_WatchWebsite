@@ -1,4 +1,5 @@
 <%@ page pageEncoding="utf-8"%>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -8,23 +9,23 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="site.webmanifest">
+<base href="${pageContext.request.contextPath}/">
 <link rel="shortcut icon" type="image/x-icon"
-	href="./resources/assets/img/favicon.ico">
+	href="resources/assets/img/favicon.ico">
 
 <!-- CSS here -->
-<link rel="stylesheet" href="./resources/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="resources/assets/css/flaticon.css">
+<link rel="stylesheet" href="resources/assets/css/slicknav.css">
+<link rel="stylesheet" href="resources/assets/css/animate.min.css">
+<link rel="stylesheet" href="resources/assets/css/magnific-popup.css">
 <link rel="stylesheet"
-	href="./resources/assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="./resources/assets/css/flaticon.css">
-<link rel="stylesheet" href="./resources/assets/css/slicknav.css">
-<link rel="stylesheet" href="./resources/assets/css/animate.min.css">
-<link rel="stylesheet" href="./resources/assets/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="./resources/assets/css/fontawesome-all.min.css">
-<link rel="stylesheet" href="./resources/assets/css/themify-icons.css">
-<link rel="stylesheet" href="./resources/assets/css/slick.css">
-<link rel="stylesheet" href="./resources/assets/css/nice-select.css">
-<link rel="stylesheet" href="./resources/assets/css/style.css">
+	href="resources/assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="resources/assets/css/themify-icons.css">
+<link rel="stylesheet" href="resources/assets/css/slick.css">
+<link rel="stylesheet" href="resources/assets/css/nice-select.css">
+<link rel="stylesheet" href="resources/assets/css/style.css">
 </head>
 
 <body>
@@ -35,7 +36,7 @@
 			<div class="preloader-inner position-relative">
 				<div class="preloader-circle"></div>
 				<div class="preloader-img pere-text">
-					<img src="assets/img/logo/logo.png" alt="">
+					<img src="resources/assets/img/logo/logo.png" alt="">
 				</div>
 			</div>
 		</div>
@@ -49,7 +50,7 @@
 					<div class="menu-wrapper">
 						<!-- Logo -->
 						<div class="logo">
-							<a href="index.html"><img src="assets/img/logo/logo.png"
+							<a href="index.html"><img src="resources/assets/img/logo/logo.png"
 								alt=""></a>
 						</div>
 						<!-- Main-menu -->
@@ -72,12 +73,17 @@
 									<li><a href="#">Pages</a>
 										<ul class="submenu">
 											<li><a href="login.html">Login</a></li>
-											<li><a href="cart.html">Cart</a></li>
+											<li><a href="cart">Cart</a></li>
 											<li><a href="elements.html">Element</a></li>
 											<li><a href="confirmation.html">Confirmation</a></li>
 											<li><a href="checkout.html">Product Checkout</a></li>
 										</ul></li>
-									<li><a href="contact.html">Contact</a></li>
+									<li><a href="contact.html">Contact</a>
+										<ul class="submenu">
+											<li><a href="user/profile">Profile</a></li>
+											<li><a href="cart">Cart</a></li>	
+										</ul></li>
+									</li>
 								</ul>
 							</nav>
 						</div>
@@ -90,7 +96,7 @@
 									</div>
 								</li>
 								<li><a href="login.html"><span class="flaticon-user"></span></a></li>
-								<li><a href="cart.html"><span
+								<li><a href="cart"><span
 										class="flaticon-shopping-cart"></span></a></li>
 							</ul>
 						</div>
@@ -120,7 +126,7 @@
 								<!-- logo -->
 								<div class="footer-logo">
 									<a href="index.html"><img
-										src="assets/img/logo/logo2_footer.png" alt=""></a>
+										src="resources/assets/img/logo/logo2_footer.png" alt=""></a>
 								</div>
 								<div class="footer-tittle">
 									<div class="footer-pera">
@@ -219,38 +225,38 @@
 
 	<!-- JS here -->
 
-	<script src="./resources/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+	<script src="resources/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 	<!-- Jquery, Popper, Bootstrap -->
-	<script src="./resources/assets/js/vendor/jquery-1.12.4.min.js"></script>
-	<script src="./resources/assets/js/popper.min.js"></script>
-	<script src="./resources/assets/js/bootstrap.min.js"></script>
+	<script src="resources/assets/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="resources/assets/js/popper.min.js"></script>
+	<script src="resources/assets/js/bootstrap.min.js"></script>
 	<!-- Jquery Mobile Menu -->
-	<script src="./resources/assets/js/jquery.slicknav.min.js"></script>
+	<script src="resources/assets/js/jquery.slicknav.min.js"></script>
 
 	<!-- Jquery Slick , Owl-Carousel Plugins -->
-	<script src="./resources/assets/js/owl.carousel.min.js"></script>
-	<script src="./resources/assets/js/slick.min.js"></script>
+	<script src="resources/assets/js/owl.carousel.min.js"></script>
+	<script src="resources/assets/js/slick.min.js"></script>
 
 	<!-- One Page, Animated-HeadLin -->
-	<script src="./resources/assets/js/wow.min.js"></script>
-	<script src="./resources/assets/js/animated.headline.js"></script>
-	<script src="./resources/assets/js/jquery.magnific-popup.js"></script>
+	<script src="resources/assets/js/wow.min.js"></script>
+	<script src="resources/assets/js/animated.headline.js"></script>
+	<script src="resources/assets/js/jquery.magnific-popup.js"></script>
 
 	<!-- Scrollup, nice-select, sticky -->
-	<script src="./resources/assets/js/jquery.scrollUp.min.js"></script>
-	<script src="./resources/assets/js/jquery.nice-select.min.js"></script>
-	<script src="./resources/assets/js/jquery.sticky.js"></script>
+	<script src="resources/assets/js/jquery.scrollUp.min.js"></script>
+	<script src="resources/assets/js/jquery.nice-select.min.js"></script>
+	<script src="resources/assets/js/jquery.sticky.js"></script>
 
 	<!-- contact js -->
-	<script src="./resources/assets/js/contact.js"></script>
-	<script src="./resources/assets/js/jquery.form.js"></script>
-	<script src="./resources/assets/js/jquery.validate.min.js"></script>
-	<script src="./resources/assets/js/mail-script.js"></script>
-	<script src="./resources/assets/js/jquery.ajaxchimp.min.js"></script>
+	<script src="resources/assets/js/contact.js"></script>
+	<script src="resources/assets/js/jquery.form.js"></script>
+	<script src="resources/assets/js/jquery.validate.min.js"></script>
+	<script src="resources/assets/js/mail-script.js"></script>
+	<script src="resources/assets/js/jquery.ajaxchimp.min.js"></script>
 
 	<!-- Jquery Plugins, main Jquery -->
-	<script src="./resources/assets/js/plugins.js"></script>
-	<script src="./resources/assets/js/main.js"></script>
+	<script src="resources/assets/js/plugins.js"></script>
+	<script src="resources/assets/js/main.js"></script>
 
 	<script>
 		$("#register-form").validate({
