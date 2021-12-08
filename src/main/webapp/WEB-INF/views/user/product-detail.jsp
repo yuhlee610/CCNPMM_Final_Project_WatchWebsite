@@ -40,7 +40,7 @@ request.getSession().setAttribute("message", "");
 					<p>Material: ${material}</p>
 					<p>Energy: ${energy}</p>
 					<p>${product.getDecription() }</p>
-					<form class="card_area" method="get" action="addItemToCart">
+					<form id="cart_form" class="card_area" method="get" action="addItemToCart">
 						<input type="hidden" value="${product.getId()}" name="productId" />
 						<div class="product_count_area">
 							<p>Quantity</p>

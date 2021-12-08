@@ -318,6 +318,13 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 				}
 				;
 			}, "Invalid phone number");
+			
+			jQuery.validator.addMethod("checkInteger", function(value) {
+				if(Number.isInteger(+value) && value > 0) {
+					return true;
+				}
+				return false;
+			}, "Invalid quantity")
 
 			$("#register-form").validate({
 				rules : {
@@ -336,62 +343,72 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 					}
 				}
 			});
+			
+			$("#cart_form").validate({
+				rules: {
+					quantity: {
+						required: true,
+						checkInteger: true
+					}
+				}
+			})
+			
+			let url = window.location.href
+			let query = ''
+			let itemsPerPage = 12
+			if (url.slice(-4) === 'shop') {
+				query = '?viewMore='
+			} else {
+				query = '&viewMore='
+				if (url.includes('?viewMore')) {
+					query = '?viewMore='
+				}
+				/* if (url.includes('&viewMore')) {
+					query = '?viewMore='
+				} */
+			}
+			if (url.includes('viewMore')) {
+				itemsPerPage = parseInt(url.substr(url.indexOf('viewMore') + 9,
+						url.length - 1))
+				console.log(itemsPerPage)
+				itemsPerPage = itemsPerPage + 10
+				url = url.slice(0, url.indexOf('viewMore') - 1)
+			}
+			$("#view_more").attr("href", url + query + itemsPerPage)
+			
+
+			const container = document.getElementById('input-comment')
+			
+			const clickReply = id => {
+				let replyId = $('#reply' + id).attr('value')
+				console.log('name_' + id)
+				let username = document.getElementById('name_' + id).innerText
+				console.log('username: ' + username)
+				let showReply = '<div id="tag">Reply ' + username + '<i class="fas fa-times ml-2" onclick="removeReply()" style="cursor: pointer;"></i></div>'
+				if(replyId) {
+					$('#replyFrom').attr('value', replyId)
+					if(document.getElementById('tag')) {
+						document.getElementById('tag').remove()
+					}
+					container.insertAdjacentHTML('afterbegin', showReply)
+					console.log(replyId)
+				}
+				else {
+					$('#replyFrom').attr('value', id)
+					if(document.getElementById('tag')) {
+						document.getElementById('tag').remove()
+					}
+					container.insertAdjacentHTML('afterbegin', showReply)
+					console.log(id)
+				}
+			}
+			
+			const removeReply = () => {
+				document.getElementById('tag').remove()
+				$('#replyFrom').attr('value', 0)
+			}
 		})
 
-		let url = window.location.href
-		let query = ''
-		let itemsPerPage = 12
-		if (url.slice(-4) === 'shop') {
-			query = '?viewMore='
-		} else {
-			query = '&viewMore='
-			if (url.includes('viewMore')) {
-				query = '?viewMore='
-			}
-			if (url.includes('&viewMore')) {
-				query = '?viewMore='
-			}
-		}
-		if (url.includes('viewMore')) {
-			itemsPerPage = parseInt(url.substr(url.indexOf('viewMore') + 9,
-					url.length - 1))
-			console.log(itemsPerPage)
-			itemsPerPage = itemsPerPage + 10
-			url = url.slice(0, url.indexOf('viewMore') - 1)
-		}
-		$("#view_more").attr("href", url + query + itemsPerPage)
-		
-
-		const container = document.getElementById('input-comment')
-		
-		const clickReply = id => {
-			let replyId = $('#reply' + id).attr('value')
-			console.log('name_' + id)
-			let username = document.getElementById('name_' + id).innerText
-			console.log('username: ' + username)
-			let showReply = '<div id="tag">Reply ' + username + '<i class="fas fa-times ml-2" onclick="removeReply()" style="cursor: pointer;"></i></div>'
-			if(replyId) {
-				$('#replyFrom').attr('value', replyId)
-				if(document.getElementById('tag')) {
-					document.getElementById('tag').remove()
-				}
-				container.insertAdjacentHTML('afterbegin', showReply)
-				console.log(replyId)
-			}
-			else {
-				$('#replyFrom').attr('value', id)
-				if(document.getElementById('tag')) {
-					document.getElementById('tag').remove()
-				}
-				container.insertAdjacentHTML('afterbegin', showReply)
-				console.log(id)
-			}
-		}
-		
-		const removeReply = () => {
-			document.getElementById('tag').remove()
-			$('#replyFrom').attr('value', 0)
-		}
 	</script>
 </body>
 </html>
