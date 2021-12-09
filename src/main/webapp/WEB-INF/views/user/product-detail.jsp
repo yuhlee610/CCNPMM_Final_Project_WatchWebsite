@@ -63,9 +63,9 @@ request.getSession().setAttribute("message", "");
 				<c:forEach var="comment" items="${comments}">
 					<div class="comment row mt-4 mb-4">
 						<div class="avatar col-2 text-center">
-							<c:if test="${not empty reply.getAvatar() }">
+							<c:if test="${not empty comment.getAvatar() }">
 								<img class="rounded-circle" width="55%"
-									src="${reply.getAvatar() }" alt="" />
+									src="${comment.getAvatar() }" alt="" />
 							</c:if>
 							<c:if test="${empty reply.getAvatar() }">
 								<img class="rounded-circle" width="55%"
