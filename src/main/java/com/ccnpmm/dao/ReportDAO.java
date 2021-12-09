@@ -23,7 +23,7 @@ public class ReportDAO {
 	public int getCountUser()
 	{
 		int count;
-		String sql="SELECT COUNT(Id) FROM [User] WHERE Id=1";
+		String sql="SELECT COUNT(Id) FROM [User] WHERE RoleId=1";
 		try {
 			count= jdbc.queryForObject(sql, new Object[] { }, Integer.class);
 		}
