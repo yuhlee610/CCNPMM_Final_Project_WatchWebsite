@@ -21,7 +21,7 @@ import com.ccnpmm.entity.Material;
 @RequestMapping("/admin/material")
 public class Admin_MaterialController {
 	@Autowired MaterialDAO mtdao;
-	@RequestMapping("/")
+	@RequestMapping()
 	public String index(ModelMap model)
 	{
 		model.addAttribute("material", new Material());
