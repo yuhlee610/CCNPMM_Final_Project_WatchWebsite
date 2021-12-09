@@ -79,7 +79,7 @@ request.getSession().setAttribute("message", "");
 							<div style="color: #777; font-style: italic;">${comment.getContent() }</div>
 							<p style="font-style: italic;">${comment.getDate()}</p>
 							<div style="color: #0d6efd; cursor: pointer"
-								onclick="clickReply(${comment.getId()})">Reply</div>
+								onclick="onClickReply(${comment.getId()})">Reply</div>
 							<c:forEach var="reply" items="${comment.getReplyList() }">
 								<div class="comment row mt-4 mb-4">
 									<div class="avatar col-2 text-center">
@@ -99,7 +99,7 @@ request.getSession().setAttribute("message", "");
 										<div style="color: #777">${reply.getContent() }</div>
 										<p>${reply.getDate()}</p>
 										<div style="color: #0d6efd; cursor: pointer"
-											onclick="clickReply(${reply.getId()})">Reply</div>
+											onclick="onClickReply(${reply.getId()})">Reply</div>
 									</div>
 								</div>
 							</c:forEach>

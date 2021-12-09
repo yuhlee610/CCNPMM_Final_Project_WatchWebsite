@@ -78,6 +78,38 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 </style>
 </head>
 
+<script>
+function onClickReply(id) {
+	let replyId = $('#reply' + id).attr('value')
+	let container = document.getElementById('input-comment')
+	console.log('name_' + id)
+	let username = document.getElementById('name_' + id).innerText
+	console.log('username: ' + username)
+	let showReply = '<div id="tag">Reply ' + username + '<i class="fas fa-times ml-2" onclick="removeReply()" style="cursor: pointer;"></i></div>'
+	if(replyId) {
+		$('#replyFrom').attr('value', replyId)
+		if(document.getElementById('tag')) {
+			document.getElementById('tag').remove()
+		}
+		container.insertAdjacentHTML('afterbegin', showReply)
+		console.log(replyId)
+	}
+	else {
+		$('#replyFrom').attr('value', id)
+		if(document.getElementById('tag')) {
+			document.getElementById('tag').remove()
+		}
+		container.insertAdjacentHTML('afterbegin', showReply)
+		console.log(id)
+	}
+}
+
+const removeReply = () => {
+	document.getElementById('tag').remove()
+	$('#replyFrom').attr('value', 0)
+}
+</script>
+
 <body>
 	<!--? Preloader Start -->
 	<div id="preloader-active">
@@ -376,37 +408,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 			}
 			$("#view_more").attr("href", url + query + itemsPerPage)
 			
-
-			const container = document.getElementById('input-comment')
 			
-			const clickReply = id => {
-				let replyId = $('#reply' + id).attr('value')
-				console.log('name_' + id)
-				let username = document.getElementById('name_' + id).innerText
-				console.log('username: ' + username)
-				let showReply = '<div id="tag">Reply ' + username + '<i class="fas fa-times ml-2" onclick="removeReply()" style="cursor: pointer;"></i></div>'
-				if(replyId) {
-					$('#replyFrom').attr('value', replyId)
-					if(document.getElementById('tag')) {
-						document.getElementById('tag').remove()
-					}
-					container.insertAdjacentHTML('afterbegin', showReply)
-					console.log(replyId)
-				}
-				else {
-					$('#replyFrom').attr('value', id)
-					if(document.getElementById('tag')) {
-						document.getElementById('tag').remove()
-					}
-					container.insertAdjacentHTML('afterbegin', showReply)
-					console.log(id)
-				}
-			}
-			
-			const removeReply = () => {
-				document.getElementById('tag').remove()
-				$('#replyFrom').attr('value', 0)
-			}
 		})
 
 	</script>

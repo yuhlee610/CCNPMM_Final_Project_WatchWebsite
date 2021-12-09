@@ -179,7 +179,7 @@ public class AccountController {
 			helper.setReplyTo(emailFrom);
 			helper.setSubject("Thank you for your interest in WatchShop");
 			String body = "Click link below to activate your account:<br>"
-					+ "<a href=\"http://localhost:81/CCNPMM_Final_Project_WatchWebsite/verifyRegister?emailEncode=" + emailEncode + "\">Click me</a>";
+					+ "<a href=\"http://localhost:8011/CCNPMM_Final_Project_WatchWebsite/verifyRegister?emailEncode=" + emailEncode + "\">Click me</a>";
 			helper.setText(body, true);
 			mailSender.send(message);
 			return true;
