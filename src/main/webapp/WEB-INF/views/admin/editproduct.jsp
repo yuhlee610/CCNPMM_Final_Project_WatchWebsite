@@ -36,7 +36,7 @@
 								<div class="form-group mb-3">
 									<label for="description">Description</label>
 									<textarea class="form-control" rows="3" name="decription" >${decription}</textarea>
-								</div>s
+								</div>
 
 								<div class="form-group mb-3">
 									<label for="price">Price</label>
@@ -87,8 +87,8 @@
 
 							<div class="col-12">
 								<button type="submit"
-									class="btn btn-primary btn-block text-uppercase">Add
-									Product Now</button>
+									class="btn btn-primary btn-block text-uppercase">Save
+									</button>
 							</div>
 
 

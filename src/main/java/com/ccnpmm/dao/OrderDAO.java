@@ -39,7 +39,10 @@ public class OrderDAO {
 		String sql = "SELECT * FROM [Order] WHERE OrderId=?";
 		return jdbc.queryForObject(sql, getRowMapper(), id);
 	}
-
+	public List<Order> getByUserId(Integer id) {
+		String sql = "SELECT * FROM [Order] WHERE UserId=?";
+		return jdbc.query(sql, getRowMapper(),id);
+	}
 	public List<Order> getAll() {
 		String sql = "SELECT * FROM [Order]";
 		return getBySql(sql);

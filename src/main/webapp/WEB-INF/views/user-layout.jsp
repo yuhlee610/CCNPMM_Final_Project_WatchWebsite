@@ -307,7 +307,13 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 	<!-- Jquery Plugins, main Jquery -->
 	<script src="resources/assets/js/plugins.js"></script>
 	<script src="resources/assets/js/main.js"></script>
+<script src="resources/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+<script
+	src="resources/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+<!-- Page level custom scripts -->
+
+<script src="resources/admin/js/demo/datatables-demo.js"></script>
 	<script>
 		$(document).ready(function() {
 			jQuery.validator.addMethod("phonenu", function(value, element) {
