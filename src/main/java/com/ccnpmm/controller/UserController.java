@@ -19,15 +19,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ccnpmm.dao.User1DAO;
 import com.ccnpmm.dao.UserDAO;
 import com.ccnpmm.entity.User;
+import com.ccnpmm.entity.User1;
 
 @Controller
 @RequestMapping("/user/")
 public class UserController {
 	
 	@Autowired ServletContext context;
-	@Autowired UserDAO userDAO;
+	@Autowired User1DAO user1Dao;
 	@Autowired Common common;
 	private Integer userId = 0;
 	private Integer flagAlert = 0;
@@ -39,7 +41,7 @@ public class UserController {
 			return "redirect:/login";
 		}
 		
-		User user = userDAO.getById(userId);
+		User1 user = user1Dao.getById(userId);
 		String birthdayStr = user.getBirthday().toString();
 		SimpleDateFormat StringToDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		Date birthdayDate = null;
@@ -50,6 +52,7 @@ public class UserController {
 		}
 		DateFormat DateToString = new SimpleDateFormat("yyyy-MM-dd");
         String birthday = DateToString.format(birthdayDate);
+        user.setBirthday(birthday);
         if(flagAlert == 1) {
         	model.addAttribute("message", "Cập nhật thông tin thành công");
         	flagAlert = 0;
@@ -63,7 +66,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/editProfile", method = RequestMethod.POST )
-	public String editProfile(HttpServletRequest request, ModelMap model, @ModelAttribute("user") User user) {
+	public String editProfile(HttpServletRequest request, ModelMap model, @ModelAttribute("user") User1 user) {
 		try {
 			userId = common.Login(request);
 			if(userId == 0) {
@@ -84,7 +87,7 @@ public class UserController {
 			}
 			
 			
-			userDAO.update(user);
+			user1Dao.update(user);
 			model.addAttribute("message", "Cập nhật thông tin thành công");
 			flagAlert = 1;
 			return "redirect:/user/profile";
@@ -105,10 +108,10 @@ public class UserController {
 			if(session.getAttribute("username").equals(""))
 				return "login";
 			Integer userid = Integer.valueOf(session.getAttribute("userId").toString());
-			User user = userDAO.getById(userid);
+			User1 user = user1Dao.getById(userid);
 			if(user.getPassword().equals(currentPassword)) {
 				user.setPassword(newPassword);
-				userDAO.changePassword(user);
+				user1Dao.changePassword(user);
 				return "true";
 			}
 			else {

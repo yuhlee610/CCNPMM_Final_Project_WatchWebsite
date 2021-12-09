@@ -35,6 +35,8 @@ public class CartController {
 	@Autowired
 	private DetailCartDAO detailCartDao;
 	
+	@Autowired private Common common;
+	
 	@RequestMapping("/updateCart")
 	public String updateCart(
 			@RequestParam(value = "productId", required = true) String productId,
@@ -74,23 +76,34 @@ public class CartController {
 	}
 	
 	@RequestMapping(value = "cartList", method = RequestMethod.GET)
-	public String viewCart(ModelMap model, HttpServletRequest request) {
-//		User user = (User) request.getSession().getAttribute("user");
-		List<DetailCart> cartList = detailCartDao.getByUserId(2);
-		
-		Float sum = (float) 0;
-		for(final DetailCart dc : cartList) {
-			sum = sum + dc.getPrice() * dc.getCount();
+	public String viewCart(HttpServletRequest request, ModelMap model) {
+		try {
+			int userId = common.Login(request);
+			if(userId != 0) {
+				
+				List<DetailCart> cartList = detailCartDao.getByUserId(userId);
+				Float sum = (float) 0;
+				for(final DetailCart dc : cartList) {
+					sum = sum + dc.getPrice() * dc.getCount();
+				}
+				
+				model.addAttribute("total", sum);
+				
+				model.addAttribute("items", cartList);
+				
+				String message = (String) request.getSession().getAttribute("message");
+				model.addAttribute("message", message);
+				
+				return "user/cart";
+			}
 		}
+		catch (Exception e){
+			String ex = e.toString();
+		}
+//		User user = (User) request.getSession().getAttribute("user");
+		return "redirect:/login";
 		
-		model.addAttribute("total", sum);
 		
-		model.addAttribute("items", cartList);
-		
-		String message = (String) request.getSession().getAttribute("message");
-		model.addAttribute("message", message);
-		
-		return "user/cart";
 	}
 	
 	@RequestMapping("/addToCart")

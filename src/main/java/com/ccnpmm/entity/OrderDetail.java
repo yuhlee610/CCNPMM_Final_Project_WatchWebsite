@@ -1,15 +1,12 @@
 package com.ccnpmm.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
 public class OrderDetail {
-	@Column(name = "Count")
+	
 	private Integer count;
-	@Column(name = "Price")
 	private Double price;
-	@Column(name = "ProductName")
 	private String productName;
 	private Integer orderId;
 	private String productId;

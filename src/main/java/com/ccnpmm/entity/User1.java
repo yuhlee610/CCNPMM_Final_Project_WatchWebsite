@@ -1,12 +1,9 @@
 package com.ccnpmm.entity;
 
-
-import java.util.Date;
-
 import javax.persistence.Entity;
 
 @Entity
-public class User {
+public class User1 {
 	private Integer Id;
 	private String username;
 	private String password;
@@ -15,16 +12,17 @@ public class User {
 	private String address;
 	private boolean state;
 	private String phone;
-	private Date birthday;
+	private String birthday;
 	private String avatar;
 	private Integer roleId;
+	private Role role;
 
-	public User() {
-		super();
-	}
+	public User1() {
+			super();
+		}
 
-	public User(Integer id, String username, String password, String email, String name, String address, boolean state,
-			String phone, Date birthday, String avatar, Integer roleId) {
+	public User1(Integer id, String username, String password, String email, String name, String address, boolean state,
+			String phone, String birthday, String avatar, Integer roleId, Role role) {
 		super();
 		Id = id;
 		this.username = username;
@@ -37,6 +35,7 @@ public class User {
 		this.birthday = birthday;
 		this.avatar = avatar;
 		this.roleId = roleId;
+		this.role = role;
 	}
 
 	public Integer getId() {
@@ -103,11 +102,11 @@ public class User {
 		this.phone = phone;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 
@@ -125,6 +124,14 @@ public class User {
 
 	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }

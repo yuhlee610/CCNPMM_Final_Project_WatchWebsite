@@ -17,11 +17,22 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AuthorizePaymentServlet</display-name>
+		<servlet-name>AuthorizePaymentServlet</servlet-name>
+		<servlet-class>com.ccnpmm.service.AuthorizePaymentServlet</servlet-class>
+	</servlet>
 
 	<!-- Map all requests to the DispatcherServlet for handling -->
 	<servlet-mapping>
 		<servlet-name>CCNPMM_Dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AuthorizePaymentServlet</servlet-name>
+		<url-pattern>/authorize_payment</url-pattern>
 	</servlet-mapping>
 	
 	<filter>  

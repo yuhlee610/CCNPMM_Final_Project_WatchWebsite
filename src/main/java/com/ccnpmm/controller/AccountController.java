@@ -16,16 +16,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.Serializable;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import com.ccnpmm.dao.RoleDAO;
 import com.ccnpmm.dao.UserDAO;
@@ -37,12 +33,6 @@ public class AccountController {
 	/**
 	 * Inject từ @Repository CustomerDAO
 	 */
-	@Autowired
-	private UserDAO userDao;
-
-	@Autowired
-	private RoleDAO roleDAO;
-	
 	@Autowired
 	private UserDAO userDao;
 	
@@ -86,7 +76,7 @@ public class AccountController {
 
 		model.addAttribute("message", "We have sent an email to your email address.");
 		return "user/register";
-	
+	}
 	/**
 	 * GET: login.htm
 	 */
@@ -143,7 +133,7 @@ public class AccountController {
 	@RequestMapping("getRoleName")
 	public String getRoleName(Serializable idRole) {
 		String roleName = "";
-		Role role = roleDAO.getById(idRole);
+		Role role = roleDao.getById(idRole);
 		roleName = role.getRoleName();
 		return roleName;
 	}
