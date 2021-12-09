@@ -40,7 +40,7 @@ request.getSession().setAttribute("message", "");
 					<p>Material: ${material}</p>
 					<p>Energy: ${energy}</p>
 					<p>${product.getDecription() }</p>
-					<form class="card_area" method="get" action="addItemToCart">
+					<form id="cart_form" class="card_area" method="get" action="addItemToCart">
 						<input type="hidden" value="${product.getId()}" name="productId" />
 						<div class="product_count_area">
 							<p>Quantity</p>
@@ -73,9 +73,13 @@ request.getSession().setAttribute("message", "");
 							</c:if>
 						</div>
 						<div class="col-10">
-							<div style="color: #777">${comment.getContent() }</div>
-							<p>${comment.getDate()}</p>
-							<div style="color: #0d6efd; cursor: pointer">Reply</div>
+							<input type="hidden" id="reply${comment.getId()}"
+								value="${comment.getReplyFrom()}" />
+							<div style="color: #777" id="name_${comment.getId()}">${comment.getUsername()}</div>
+							<div style="color: #777; font-style: italic;">${comment.getContent() }</div>
+							<p style="font-style: italic;">${comment.getDate()}</p>
+							<div style="color: #0d6efd; cursor: pointer"
+								onclick="clickReply(${comment.getId()})">Reply</div>
 							<c:forEach var="reply" items="${comment.getReplyList() }">
 								<div class="comment row mt-4 mb-4">
 									<div class="avatar col-2 text-center">
@@ -89,9 +93,13 @@ request.getSession().setAttribute("message", "");
 										</c:if>
 									</div>
 									<div class="col-10">
+										<input type="hidden" id="reply${reply.getId()}"
+											value="${reply.getReplyFrom()}" />
+										<div style="color: #777; font-style: italic;" id="name_${reply.getId()}">${reply.getUsername()}</div>
 										<div style="color: #777">${reply.getContent() }</div>
 										<p>${reply.getDate()}</p>
-										<div style="color: #0d6efd; cursor: pointer">Reply</div>
+										<div style="color: #0d6efd; cursor: pointer"
+											onclick="clickReply(${reply.getId()})">Reply</div>
 									</div>
 								</div>
 							</c:forEach>
@@ -100,16 +108,22 @@ request.getSession().setAttribute("message", "");
 				</c:forEach>
 
 				<div class="add_comment">
-					<div class="row mb-2">
-						<div class="avatar col-2 text-center">
-							<img class="rounded-circle" width="55%"
-								src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"
-								alt="" />
+					<form action="addComment" method="post">
+						<div class="row mb-2">
+							<div class="avatar col-2 text-center">
+								<img class="rounded-circle" width="55%"
+									src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"
+									alt="" />
+							</div>
+							<div class="col-10" id="input-comment">
+								<textarea name="content" style="width: 100%;" rows="4"></textarea>
+							</div>
 						</div>
-						<textarea class="col-10" cols="60" rows="4"></textarea>
-					</div>
-					<button style="padding: 12px 16px; background-color: #007bff"
-						class="button float-right">Submit</button>
+						<input type="hidden" value="0" name="replyFrom" id="replyFrom" />
+						<input type="hidden" value="${product.getId()}" name="productId" />
+						<button style="padding: 12px 16px; background-color: #007bff"
+							class="button float-right mb-4">Submit</button>
+					</form>
 				</div>
 			</div>
 		</div>
