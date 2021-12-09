@@ -14,7 +14,7 @@ public class OrderController {
 @RequestMapping()
 public String order(ModelMap model)
 {
-	model.addAttribute("orders",odao.getByUserId(1));
+	model.addAttribute("orders",odao.getByUserid(1));
 	
 	return "user/order";
 }
