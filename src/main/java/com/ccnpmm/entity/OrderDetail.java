@@ -10,6 +10,23 @@ public class OrderDetail {
 	private String productName;
 	private Integer orderId;
 	private String productId;
+    private Double total;
+    private String image;
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public Double getTotal() {
+	return total;
+}
+
+public void setTotal(Double total) {
+	this.total = total;
+}
 
 	public OrderDetail(Integer count, Double price, String productName, Integer orderId, String productId) {
 		super();

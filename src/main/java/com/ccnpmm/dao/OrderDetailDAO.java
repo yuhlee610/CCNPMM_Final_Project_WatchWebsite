@@ -42,7 +42,10 @@ public class OrderDetailDAO {
 		String sql = "SELECT * FROM OrderDetail";
 		return getBySql(sql);
 	}
-
+	public List<OrderDetail> getByOrder(Integer orderid) {
+		String sql = "SELECT * FROM OrderDetail WHERE OrderId=? ";
+		return jdbc.query(sql, getRowMapper(),orderid);
+	}
 	protected List<OrderDetail> getBySql(String sql) {
 		return jdbc.query(sql, getRowMapper());
 	}

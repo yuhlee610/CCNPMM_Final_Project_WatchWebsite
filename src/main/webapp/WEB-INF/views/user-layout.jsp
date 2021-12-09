@@ -33,49 +33,82 @@
 <link rel="stylesheet" href="resources/assets/css/slick.css">
 <link rel="stylesheet" href="resources/assets/css/nice-select.css">
 <link rel="stylesheet" href="resources/assets/css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+	integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+	crossorigin="anonymous" />
 
 <style>
 input[type="number"] {
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
+	-webkit-appearance: textfield;
+	-moz-appearance: textfield;
+	appearance: textfield;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button
+	{
+	-webkit-appearance: none;
 }
 
 .number-input {
-  border: 2px solid #ddd;
-  display: inline-flex;
+	border: 2px solid #ddd;
+	display: inline-flex;
 }
 
-.number-input,
-.number-input * {
-  box-sizing: border-box;
+.number-input, .number-input * {
+	box-sizing: border-box;
 }
 
 .number-input div {
-  outline:none;
-  -webkit-appearance: none;
-  background-color: transparent;
-  border: none;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-  margin: 0;
-  position: relative;
-  color: #415094;
-  font-size: 20px;
-  text-align: center;
+	outline: none;
+	-webkit-appearance: none;
+	background-color: transparent;
+	border: none;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	cursor: pointer;
+	margin: 0;
+	position: relative;
+	color: #415094;
+	font-size: 20px;
+	text-align: center;
 }
-
 </style>
 </head>
+
+<script>
+function onClickReply(id) {
+	let replyId = $('#reply' + id).attr('value')
+	let container = document.getElementById('input-comment')
+	console.log('name_' + id)
+	let username = document.getElementById('name_' + id).innerText
+	console.log('username: ' + username)
+	let showReply = '<div id="tag">Reply ' + username + '<i class="fas fa-times ml-2" onclick="removeReply()" style="cursor: pointer;"></i></div>'
+	if(replyId) {
+		$('#replyFrom').attr('value', replyId)
+		if(document.getElementById('tag')) {
+			document.getElementById('tag').remove()
+		}
+		container.insertAdjacentHTML('afterbegin', showReply)
+		console.log(replyId)
+	}
+	else {
+		$('#replyFrom').attr('value', id)
+		if(document.getElementById('tag')) {
+			document.getElementById('tag').remove()
+		}
+		container.insertAdjacentHTML('afterbegin', showReply)
+		console.log(id)
+	}
+}
+
+const removeReply = () => {
+	document.getElementById('tag').remove()
+	$('#replyFrom').attr('value', 0)
+}
+</script>
 
 <body>
 	<!--? Preloader Start -->
@@ -99,8 +132,8 @@ input[type=number]::-webkit-outer-spin-button {
 					<div class="menu-wrapper">
 						<!-- Logo -->
 						<div class="logo">
-							<a href="index.html"><img src="resources/assets/img/logo/logo.png"
-								alt=""></a>
+							<a href="index.html"><img
+								src="resources/assets/img/logo/logo.png" alt=""></a>
 						</div>
 						<!-- Main-menu -->
 						<div class="main-menu d-none d-lg-block">
@@ -130,7 +163,7 @@ input[type=number]::-webkit-outer-spin-button {
 									<li><a href="contact.html">Contact</a>
 										<ul class="submenu">
 											<li><a href="user/profile">Profile</a></li>
-											<li><a href="cart">Cart</a></li>	
+											<li><a href="cart">Cart</a></li>
 										</ul></li>
 									</li>
 								</ul>
@@ -317,6 +350,13 @@ input[type=number]::-webkit-outer-spin-button {
 				}
 				;
 			}, "Invalid phone number");
+			
+			jQuery.validator.addMethod("checkInteger", function(value) {
+				if(Number.isInteger(+value) && value > 0) {
+					return true;
+				}
+				return false;
+			}, "Invalid quantity")
 
 			$("#register-form").validate({
 				rules : {
@@ -335,26 +375,42 @@ input[type=number]::-webkit-outer-spin-button {
 					}
 				}
 			});
+			
+			$("#cart_form").validate({
+				rules: {
+					quantity: {
+						required: true,
+						checkInteger: true
+					}
+				}
+			})
+			
+			let url = window.location.href
+			let query = ''
+			let itemsPerPage = 12
+			if (url.slice(-4) === 'shop') {
+				query = '?viewMore='
+			} else {
+				query = '&viewMore='
+				if (url.includes('?viewMore')) {
+					query = '?viewMore='
+				}
+				/* if (url.includes('&viewMore')) {
+					query = '?viewMore='
+				} */
+			}
+			if (url.includes('viewMore')) {
+				itemsPerPage = parseInt(url.substr(url.indexOf('viewMore') + 9,
+						url.length - 1))
+				console.log(itemsPerPage)
+				itemsPerPage = itemsPerPage + 10
+				url = url.slice(0, url.indexOf('viewMore') - 1)
+			}
+			$("#view_more").attr("href", url + query + itemsPerPage)
+			
+			
 		})
 
-		let url = window.location.href
-		let query = ''
-		let itemsPerPage = 12
-		if (url.slice(-4) === 'shop') {
-			query = '?viewMore='
-		} else {
-			query = '&viewMore='
-			if (url.includes('viewMore')) {
-				query = '?viewMore='
-			}
-		}
-		if (url.includes('viewMore')) {
-			itemsPerPage = parseInt(url.substr(url.indexOf('viewMore') + 6,
-					url.length - 1))
-			itemsPerPage = itemsPerPage + 10
-			url = url.slice(0, url.indexOf('viewMore') - 1)
-		}
-		$("#view_more").attr("href", url + query + itemsPerPage)
 	</script>
 </body>
 </html>

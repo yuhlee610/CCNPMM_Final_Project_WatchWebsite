@@ -62,7 +62,26 @@ public class OrderDAO {
 		String sql = "SELECT * FROM [Order]";
 		return getBySql(sql);
 	}
-
+	public List<Order> getOrderWconfirm() {
+		String sql = "SELECT * FROM [Order] WHERE DeliveryStatus='1'";
+		return getBySql(sql);
+	}
+	public List<Order> getOrderConfirm() {
+		String sql = "SELECT * FROM [Order] WHERE DeliveryStatus='2'";
+		return getBySql(sql);
+	}
+	public List<Order> getOrderDeliver() {
+		String sql = "SELECT * FROM [Order] WHERE DeliveryStatus='3'";
+		return getBySql(sql);
+	}
+	public List<Order> getOrderDelivered() {
+		String sql = "SELECT * FROM [Order] WHERE DeliveryStatus='4'";
+		return getBySql(sql);
+	}
+	public List<Order> getOrderCancel() {
+		String sql = "SELECT * FROM [Order] WHERE DeliveryStatus='5'";
+		return getBySql(sql);
+	}
 	protected List<Order> getBySql(String sql) {
 		return jdbc.query(sql, getRowMapper());
 	}

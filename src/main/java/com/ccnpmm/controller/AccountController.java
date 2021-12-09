@@ -22,6 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ccnpmm.dao.RoleDAO;
 import com.ccnpmm.dao.UserDAO;
@@ -35,6 +42,10 @@ public class AccountController {
 	 */
 	@Autowired
 	private UserDAO userDao;
+
+	@Autowired
+	private RoleDAO roleDAO;
+
 	
 	@Autowired
 	private RoleDAO roleDao;
@@ -170,7 +181,7 @@ public class AccountController {
 			helper.setReplyTo(emailFrom);
 			helper.setSubject("Thank you for your interest in WatchShop");
 			String body = "Click link below to activate your account:<br>"
-					+ "<a href=\"http://localhost:81/CCNPMM_Final_Project_WatchWebsite/verifyRegister?emailEncode=" + emailEncode + "\">Click me</a>";
+					+ "<a href=\"http://localhost:8011/CCNPMM_Final_Project_WatchWebsite/verifyRegister?emailEncode=" + emailEncode + "\">Click me</a>";
 			helper.setText(body, true);
 			mailSender.send(message);
 			return true;

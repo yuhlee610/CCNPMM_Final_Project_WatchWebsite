@@ -1,0 +1,38 @@
+ .heading {
+            font-size: 19px;
+            font-weight: 300;
+            margin: 20px 0px 0px;
+            display: flex;
+        }
+
+        .created-date {
+            display: flex;
+            align-items: flex-end;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            margin: 20px;
+        }
+
+        .sub-content {
+            display: flex;
+            flex-direction: column;
+            height: 80%;
+            background-color: white;
+        }
+
+        tfoot {
+            vertical-align: middle;
+            border-color: inherit;
+        }
+
+        #Table-OrderDetail {
+            margin: 20px;
+            background-color: white;
+        }
+
+        .borderless td, .borderless th {
+            border: none;
+        }

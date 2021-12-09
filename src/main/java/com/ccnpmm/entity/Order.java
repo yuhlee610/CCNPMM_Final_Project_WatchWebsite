@@ -14,6 +14,14 @@ public class Order {
 	private String phone;
 	private String deliveryStatus;
 	private Integer userId;
+	private User user;
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Order() {
 		super();

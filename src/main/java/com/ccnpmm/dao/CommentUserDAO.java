@@ -16,8 +16,8 @@ public class CommentUserDAO {
 	@Autowired
 	protected JdbcTemplate jdbc;
 	
-	public List<CommentUser> getByProductId(Serializable id) {
-		String sql = "select Comment.Id, Comment.Content, Comment.Date, Comment.ProductId, Comment.ReplyFrom, Comment.UserId, [User].Username, [User].Avatar from Comment, [User] where Comment.UserId = [User].Id and ProductId = ?";
+	public List<CommentUser> getCommentByProductId(Serializable id) {
+		String sql = "select Comment.Id, Comment.Content, Comment.Date, Comment.ProductId, Comment.ReplyFrom, Comment.UserId, [User].Username, [User].Avatar from Comment, [User] where Comment.UserId = [User].Id and ProductId = ? and ReplyFrom IS NULL";
 		return jdbc.query(sql, getRowMapper(), id);
 	}
 	

@@ -23,6 +23,42 @@ public class Comment {
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date date;
 	private Integer replyFrom;
+private User user;
+private User user1;
+
+private Comment comment;
+private Integer idComment;
+public User getUser1() {
+	return user1;
+}
+
+public void setUser1(User user1) {
+	this.user1 = user1;
+}
+
+	public Integer getIdComment() {
+	return idComment;
+}
+
+public void setIdComment(Integer idComment) {
+	this.idComment = idComment;
+}
+
+	public Comment getComment() {
+	return comment;
+}
+
+public void setComment(Comment comment) {
+	this.comment = comment;
+}
+
+	public User getUser() {
+	return user;
+}
+
+public void setUser(User user) {
+	this.user = user;
+}
 
 	public Comment(Integer id, Integer userId, String productId, String content, Date date, Integer replyFrom) {
 		super();
