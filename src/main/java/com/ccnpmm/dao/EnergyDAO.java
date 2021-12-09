@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.ccnpmm.entity.Brand;
 import com.ccnpmm.entity.Energy;
 
 @Repository
@@ -35,7 +36,12 @@ public class EnergyDAO {
 		String sql = "SELECT * FROM Energy WHERE EnergyId=?";
 		return jdbc.queryForObject(sql, getRowMapper(), id);
 	}
-
+	public Energy getByName(String name)
+	{
+		String sql="SELECT * FROM Energy WHERE EnergyName=?";
+		return jdbc.queryForObject(sql, getRowMapper(),name);
+		
+	}
 	public List<Energy> getAll() {
 		String sql = "SELECT * FROM Energy";
 		return getBySql(sql);

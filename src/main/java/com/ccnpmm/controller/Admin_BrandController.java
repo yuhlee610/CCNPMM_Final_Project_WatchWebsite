@@ -29,6 +29,7 @@ public String index(ModelMap model)
 {
 	model.addAttribute("brand", new Brand());
 	model.addAttribute("brands", branddao.getAll());
+	model.addAttribute("message", "");
 	return "admin/brand";
 }
 @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -38,7 +39,7 @@ public String create(ModelMap model,@ModelAttribute("brand")Brand brand)
 	{
 		branddao.insert(brand);
 	}
-	
+	model.addAttribute("message", "");
 	model.addAttribute("brand", new Brand());
 	model.addAttribute("brands", branddao.getAll());
 	return "admin/brand";
@@ -94,6 +95,7 @@ public String delete(ModelMap model,HttpServletRequest request)
 	if(a!=null) {
 		int id =Integer.valueOf(a) ;
 	branddao.delete(id);
+	model.addAttribute("message", "");
 	model.addAttribute("brand", new Brand());
 	model.addAttribute("brands", branddao.getAll());
 	}

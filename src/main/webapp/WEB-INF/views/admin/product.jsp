@@ -17,10 +17,10 @@
 		<div class="row mb-2">
 
 
-			
-				<a href="admin/product/create"><i class="fa fa-plus mr-2"></i>
-					Add Product</a>
-			
+
+			<a href="admin/product/create"><i class="fa fa-plus mr-2"></i>
+				Add Product</a>
+
 		</div>
 	</div>
 
@@ -28,6 +28,7 @@
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">Products</h6>
 		</div>
+		<span class="text-danger">${message}</span>
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%"
@@ -68,7 +69,7 @@
 								<td>${p.id }</td>
 								<td>${p.name }</td>
 								<td>${p.amount }</td>
-								<td> <fmt:formatNumber value = "${p.price}" type = "currency"/></td>
+								<td><fmt:formatNumber value="${p.price}" type="currency" /></td>
 								<td><img style="width: 50px; height: 50px"
 									src="resources/assets/img/gallery/${p.image}"></td>
 								<td>${p.decription}</td>
@@ -77,15 +78,16 @@
 								<td>${p.energy.energyName}</td>
 								<td>${p.material.materialName}</td>
 
-<td>
+								<td>
 
-										
-									<a href="admin/product/edit/${p.id }" title="Edit"><i class="fa fa-pen" aria-hidden="true"></i></a>
-									
-				<a href="admin/product/delete/${p.id }" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+								
+										<a href="admin/product/edit/${p.id }" title="Edit"><i class="fa fa-pen" aria-hidden="true" ></i></a>
+									<a href="admin/product/delete/${p.id }" title="Delete" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" aria-hidden="true" ></i></a>
+
 									
 
-</td>
+								</td>
 
 
 							</tr>
@@ -114,4 +116,5 @@
 <!-- Page level custom scripts -->
 
 <script src="resources/admin/js/demo/datatables-demo.js"></script>
+
 </html>

@@ -36,4 +36,7 @@ public class Brand {
 	public void setBrandName(String brandName) {
 		this.brandName = brandName;
 	}
+	public String toString() {
+		   return brandName;
+		}
 }

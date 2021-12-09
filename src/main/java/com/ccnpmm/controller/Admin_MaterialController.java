@@ -26,6 +26,7 @@ public class Admin_MaterialController {
 	{
 		model.addAttribute("material", new Material());
 		model.addAttribute("materials", mtdao.getAll());
+		model.addAttribute("message", "");
 		return "admin/material";
 	}
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -38,6 +39,7 @@ public class Admin_MaterialController {
 		
 		model.addAttribute("material", new Material());
 		model.addAttribute("materials", mtdao.getAll());
+		model.addAttribute("message", "");
 		return "admin/material";
 	}
 	@RequestMapping(value="edit/{id}",method=RequestMethod.GET)
@@ -92,6 +94,7 @@ public class Admin_MaterialController {
 		if(a!=null) {
 			int id =Integer.valueOf(a) ;
 		mtdao.delete(id);
+		model.addAttribute("message", "");
 		model.addAttribute("material", new Material());
 		model.addAttribute("materials", mtdao.getAll());
 		}
