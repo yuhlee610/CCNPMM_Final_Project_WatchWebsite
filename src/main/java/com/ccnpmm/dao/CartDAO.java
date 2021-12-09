@@ -30,6 +30,12 @@ public class CartDAO {
 		String sql = "DELETE FROM Cart WHERE UserId=? and ProductId=?";
 		jdbc.update(sql, userId, productId);
 	}
+	
+	public void deleteCart(Serializable userId) {
+		String sql = "DELETE FROM Cart WHERE UserId=?";
+		jdbc.update(sql, userId);
+
+	}
 
 	public Cart getByUser(Serializable userId) {
 		String sql = "SELECT * FROM Cart WHERE UserId=?";

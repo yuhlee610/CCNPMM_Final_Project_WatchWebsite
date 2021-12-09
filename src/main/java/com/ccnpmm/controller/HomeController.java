@@ -25,7 +25,7 @@ public class HomeController {
 	public String index(HttpServletRequest request, ModelMap model) {
 		HttpSession session = request.getSession();
 		try {
-			session.getAttribute("username");
+			session.getAttribute("userId");
 		}
 		catch(Exception ex) {
 			Constructor(request);

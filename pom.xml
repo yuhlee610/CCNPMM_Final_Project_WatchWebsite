@@ -130,10 +130,20 @@
 			<artifactId>spring-session-jdbc</artifactId>
 			<version>2.3.0.RELEASE</version>
 		</dependency>
+
+		
+		<!--  paypal -->
+		<dependency>
+			<groupId>com.paypal.sdk</groupId>
+			<artifactId>rest-api-sdk</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+
 		<dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi</artifactId>
       <version>3.15</version>
  </dependency>
+
 	</dependencies>
 </project>
