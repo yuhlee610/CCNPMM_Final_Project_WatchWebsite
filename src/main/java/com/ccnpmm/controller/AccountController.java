@@ -16,9 +16,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.Serializable;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -142,7 +144,7 @@ public class AccountController {
 	@RequestMapping("getRoleName")
 	public String getRoleName(Serializable idRole) {
 		String roleName = "";
-		Role role = roleDAO.getById(idRole);
+		Role role = roleDao.getById(idRole);
 		roleName = role.getRoleName();
 		return roleName;
 	}
@@ -179,7 +181,7 @@ public class AccountController {
 			helper.setReplyTo(emailFrom);
 			helper.setSubject("Thank you for your interest in WatchShop");
 			String body = "Click link below to activate your account:<br>"
-					+ "<a href=\"http://localhost:81/CCNPMM_Final_Project_WatchWebsite/verifyRegister?emailEncode=" + emailEncode + "\">Click me</a>";
+					+ "<a href=\"http://localhost:8011/CCNPMM_Final_Project_WatchWebsite/verifyRegister?emailEncode=" + emailEncode + "\">Click me</a>";
 			helper.setText(body, true);
 			mailSender.send(message);
 			return true;

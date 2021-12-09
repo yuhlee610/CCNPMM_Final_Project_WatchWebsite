@@ -4,30 +4,22 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 @Entity
-public class Order {
+public class Order1 {
 	private Integer orderId;
 	private String code;
-	private Date orderDate;
+	private String orderDate;
 	private Double total;
 	private String address;
 	private String name;
 	private String phone;
 	private String deliveryStatus;
 	private Integer userId;
-	private User user;
-	public User getUser() {
-		return user;
-	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Order() {
+	public Order1() {
 		super();
 	}
 
-	public Order(Integer orderId, String code, Date orderDate, Double total, String address, String name, String phone,
+	public Order1(Integer orderId, String code, String orderDate, Double total, String address, String name, String phone,
 			String deliveryStatus, Integer userId) {
 		super();
 		this.orderId = orderId;
@@ -57,11 +49,11 @@ public class Order {
 		this.code = code;
 	}
 
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 
