@@ -36,4 +36,7 @@ public class Energy {
 	public void setEnergyName(String energyName) {
 		this.energyName = energyName;
 	}
+	public String toString() {
+		   return energyName;
+		}
 }

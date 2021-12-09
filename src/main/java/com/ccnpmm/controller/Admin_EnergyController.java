@@ -13,78 +13,76 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-import com.ccnpmm.dao.MaterialDAO;
+import com.ccnpmm.dao.EnergyDAO;
 
-import com.ccnpmm.entity.Material;
+import com.ccnpmm.entity.Energy;
 
 @Controller
-@RequestMapping("/admin/material")
-public class Admin_MaterialController {
-	@Autowired MaterialDAO mtdao;
+@RequestMapping("/admin/energy")
+public class Admin_EnergyController {
+	@Autowired EnergyDAO edao;
 	@RequestMapping()
 	public String index(ModelMap model)
 	{
-		model.addAttribute("material", new Material());
-		model.addAttribute("materials", mtdao.getAll());
 		model.addAttribute("message", "");
-		return "admin/material";
+		model.addAttribute("energy", new Energy());
+		model.addAttribute("energys", edao.getAll());
+		return "admin/energy";
 	}
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(ModelMap model,@ModelAttribute("material")Material material)
+	public String create(ModelMap model,@ModelAttribute("energy")Energy energy)
 	{
-		if(material.getMaterialName()!=null)
+		if(energy.getEnergyName()!="")
 		{
-			mtdao.insert(material);
+			edao.insert(energy);
 		}
-		
-		model.addAttribute("material", new Material());
-		model.addAttribute("materials", mtdao.getAll());
 		model.addAttribute("message", "");
-		return "admin/material";
+		model.addAttribute("energy", new Energy());
+		model.addAttribute("energys", edao.getAll());
+		return "admin/energy";
 	}
 	@RequestMapping(value="edit/{id}",method=RequestMethod.GET)
 	public String edit(ModelMap model,@PathVariable("id") Integer id)
 	{
 		if(id!=null) {
-			Material material=mtdao.getById((id));
-			model.addAttribute("materialName",material.getMaterialName());
-			model.addAttribute("materialId", material.getMaterialId());
+			Energy energy=edao.getById((id));
+			model.addAttribute("energyName",energy.getEnergyName());
+			model.addAttribute("energyId", energy.getEnergyId());
 		
 		}
-		return "editmaterial";
+		return "editenergy";
 	}
-	@RequestMapping(value="edit/{materialId}",method=RequestMethod.POST)
-	public String edit(ModelMap model,@ModelAttribute("material")Material material)
+	@RequestMapping(value="edit/{energyId}",method=RequestMethod.POST)
+	public String edit(ModelMap model,@ModelAttribute("energy")Energy energy)
 	{
-		if(material.getMaterialName()!="" )
+		if(energy.getEnergyName()!="")
 		{
 			
 			try {
-				if(mtdao.getByName(material.getMaterialName())!=null)
+				if(edao.getByName(energy.getEnergyName())!=null)
 				{
-					model.addAttribute("material", new Material());
-					model.addAttribute("materials", mtdao.getAll());
-						model.addAttribute("message", "Material name is already");
+					model.addAttribute("energy", new Energy());
+					model.addAttribute("energys", edao.getAll());
+						model.addAttribute("message", "Energy name is already");
 				}
 				
 				}
 				catch(Exception e) {
-				
 					
-						mtdao.update(material);
-						model.addAttribute("material", new Material());
-						model.addAttribute("materials", mtdao.getAll());
+						edao.update(energy);
+						model.addAttribute("energy", new Energy());
+						model.addAttribute("energys", edao.getAll());
 							model.addAttribute("message", "Update success!");
 				}
 		}
 		else {
-			model.addAttribute("material", new Material());
-			model.addAttribute("materials", mtdao.getAll());
+			model.addAttribute("energy", new Energy());
+			model.addAttribute("energys", edao.getAll());
 			model.addAttribute("message", "Update fail!");
 		}
 		
 		
-		return "admin/material";
+		return "admin/energy";
 	}
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	public String delete(ModelMap model,HttpServletRequest request)
@@ -93,12 +91,12 @@ public class Admin_MaterialController {
 		
 		if(a!=null) {
 			int id =Integer.valueOf(a) ;
-		mtdao.delete(id);
+		edao.delete(id);
 		model.addAttribute("message", "");
-		model.addAttribute("material", new Material());
-		model.addAttribute("materials", mtdao.getAll());
+		model.addAttribute("energy", new Energy());
+		model.addAttribute("energys", edao.getAll());
 		}
-		return "admin/material";
+		return "admin/energy";
 	}
 	@RequestMapping(value="/checkname")
 	@ResponseBody
@@ -106,7 +104,7 @@ public class Admin_MaterialController {
 	{
 		
 			try {
-				if(mtdao.getByName(name)!=null)
+				if(edao.getByName(name)!=null)
 				{
 					return "false";
 				}

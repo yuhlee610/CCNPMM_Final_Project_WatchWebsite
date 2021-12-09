@@ -36,4 +36,7 @@ public class Material {
 	public void setMaterialName(String materialName) {
 		this.materialName = materialName;
 	}
+	public String toString() {
+		   return materialName;
+		}
 }

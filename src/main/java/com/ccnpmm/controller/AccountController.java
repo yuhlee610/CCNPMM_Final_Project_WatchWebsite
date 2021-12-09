@@ -26,6 +26,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ccnpmm.dao.RoleDAO;
 import com.ccnpmm.dao.UserDAO;
@@ -43,8 +44,7 @@ public class AccountController {
 	@Autowired
 	private RoleDAO roleDAO;
 	
-	@Autowired
-	private UserDAO userDao;
+	
 	
 	@Autowired
 	private RoleDAO roleDao;
@@ -86,7 +86,7 @@ public class AccountController {
 
 		model.addAttribute("message", "We have sent an email to your email address.");
 		return "user/register";
-	
+	}
 	/**
 	 * GET: login.htm
 	 */
