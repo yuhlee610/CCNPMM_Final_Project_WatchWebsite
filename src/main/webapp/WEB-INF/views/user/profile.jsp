@@ -70,7 +70,7 @@
 							<div class="col-lg-3 col-md-4 col-sm-12 m-b30">
 								<div class="profile-bx text-center">
 									<div class="user-profile-thumb">
-										<img src="resources/Users/images/profile/pic1.jpg" alt="" />
+										<img src="${user.avatar}" alt="" />
 									</div>
 									<div class="profile-info">
 										<h4>${user.username}</h4>
@@ -86,13 +86,13 @@
 									</div>
 									<div class="profile-tabnav">
 										<ul class="nav nav-tabs">
-											<li class="nav-item"><a class="nav-link active"
+											<!-- <li class="nav-item"><a class="nav-link "
 												data-toggle="tab" href="#courses"><i class="ti-book"></i>Courses</a>
 											</li>
 											<li class="nav-item"><a class="nav-link"
 												data-toggle="tab" href="#quiz-results"><i
-													class="ti-bookmark-alt"></i>Other Courses</a></li>
-											<li class="nav-item"><a class="nav-link"
+													class="ti-bookmark-alt"></i>Other Courses</a></li> -->
+											<li class="nav-item"><a class="nav-link active"
 												data-toggle="tab" href="#edit-profile"><i
 													class="ti-pencil-alt"></i>Edit Profile</a></li>
 											<li class="nav-item"><a class="nav-link"
@@ -105,7 +105,7 @@
 							<div class="col-lg-9 col-md-8 col-sm-12 m-b30">
 								<div class="profile-content-bx">
 									<div class="tab-content">
-										<div class="tab-pane active" id="courses">
+										<div class="tab-pane" id="courses">
 											<div class="profile-head">
 												<h3>My Courses</h3>
 												<div class="feature-filters style1 ml-auto">
@@ -139,29 +139,29 @@
 											</div>
 										</div>
 
-										<div class="tab-pane" id="edit-profile">
+										<div class="tab-pane active" id="edit-profile">
 											<div class="profile-head">
 												<h3>Edit Profile</h3>
 											</div>
 
 											<!-- <form action="user/uploadFile" method="post" enctype="multipart/form-data"> -->
 											<div class="user-profile-thumb">
-												<input type="file" id="fileUpload" accept="image/*"
-													name="fileUpload" style="display: none" /> 
+												<!-- <input type="file" id="fileUpload" accept="image/*"
+													name="fileUpload" style="display: none" />  -->
 												<img id="picUpload" name="picUpload"
 													src="${user.avatar}" alt="">
 											</div>
-											<input class="btn" type="submit" id="btnUpload"
-												value="Choose image" style="margin-left: 60px;" />
+											<!-- <input class="btn" type="submit" id="btnUpload"
+												value="Choose image" style="margin-left: 60px;" /> -->
 											<!-- </form> -->
 
 
 
 
 											<form:form class="edit-profile" action="user/editProfile"
-												method="post" modelAttrbute="user" enctype="multipart/form-data">
+												method="post" enctype="multipart/form-data" modelAttrbute="user" >
 												
-												<div>Attachment file:</div> <input name="avatar" type="file">
+												<div>Choose avatar:</div> <input name="attachment" type="file">
 												
 												<div class="">
 													<div class="form-group row">
@@ -260,8 +260,9 @@
 														<div class="col-12 col-sm-8 col-md-8 col-lg-7">
 															<input class="form-control" type="password"
 																id="newPassword"
-																pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-																title="Please include at least 1 uppercase character, 1 lowercase character, and 1 number."
+																minlength="6" maxlength="20"
+																pattern="(?=.*\d)(?=.*[\W_]).{6,}" 
+																title="Minimum of 6 characters. Should have at least one special character and one number."
 																required>
 														</div>
 													</div>
@@ -331,25 +332,6 @@
 <script>
 	$(document).ready(function() {
 
-		//Load My Course
-		$.ajax({
-			url : "/Student/Manage/LoadMyCourse",
-
-			success : function(result) {
-				$(".loadMyCourse").html(result);
-				//document.getElementById("title").innerHTML = var2;
-			}
-		});
-
-		//load Course not bought
-		$.ajax({
-			url : "/Student/Manage/NotBought",
-
-			success : function(result) {
-				$(".loadCkechout").html(result);
-				//document.getElementById("title").innerHTML = var2;
-			}
-		});
 
 		$(function() {
 			// event click button change
@@ -399,6 +381,7 @@
 
 		$("#btnChangePassword").click(function() {
 			debugger;
+			var passw=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 			var currentPassword = $("#currentPassword").val();
 			var newPassword = $("#newPassword").val();
 			var confirmPassword = $("#confirmPassword").val();
@@ -407,8 +390,11 @@
 			}
 			//else if ("^ (?=.*\d)(?=.* [a - z])(?=.* [A - Z])(?!.*\s).* $".test(newPassword))
 			//{
-			//    $("#message").text("Please include at least 1 uppercase character, 1 lowercase character, and 1 number.");
+			 //   $("#message").text("Please include at least 1 uppercase character, 1 lowercase character, and 1 number.");
 			//}
+			else if( !newPassword.match(passw)){
+				$("#message").text(" 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter");
+			}
 			else if (newPassword !== confirmPassword) {
 				$("#message").text("Mật khẩu không trùng khớp");
 			} else {

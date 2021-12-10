@@ -18,9 +18,9 @@ public class UserDAO {
 	protected JdbcTemplate jdbc;
 
 	public void register(User entity) {
-		String sql = "INSERT INTO [dbo].[User] (Username, Password, Email, Name, Phone, Address, State, RoleId) VALUES (?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO [dbo].[User] (Username, Password, Email, Name, Phone, Address, State, RoleId, Avatar) VALUES (?,?,?,?,?,?,?,?)";
 		jdbc.update(sql, entity.getUsername(), entity.getPassword(), entity.getEmail(), entity.getName(),
-				entity.getPhone(), entity.getAddress(), true, entity.getRoleId());
+				entity.getPhone(), entity.getAddress(), true, entity.getRoleId(), entity.getAvatar());
 	}
 
 	public void update(User entity) {
@@ -51,6 +51,11 @@ public class UserDAO {
 	public User getByUsername(String username) {
 		String sql = "SELECT * FROM [User] WHERE Username=?";
 		return jdbc.queryForObject(sql, getRowMapper(), username);
+	}
+	
+	public User getByEmail(String email) {
+		String sql = "SELECT * FROM [User] WHERE Email=?";
+		return jdbc.queryForObject(sql, getRowMapper(), email);
 	}
 
 	public List<User> getAll() {

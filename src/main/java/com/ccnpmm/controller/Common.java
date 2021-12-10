@@ -5,7 +5,11 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.ccnpmm.dao.UserDAO;
+import com.ccnpmm.entity.User;
 
 @Repository
 public class Common {
@@ -14,6 +18,7 @@ public class Common {
     private static final String digits = "0123456789"; // 0-9
     private static final String ALPHA_NUMERIC = alpha + alphaUpperCase + digits;
     private static Random generator = new Random();
+    @Autowired UserDAO userDao;
 
 	public Integer Login(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -25,6 +30,20 @@ public class Common {
 			// TODO: handle exception
 			return 0;
 		}
+	}
+	
+	public Integer AdminLogin(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		try {
+			int userId = Integer.valueOf(session.getAttribute("userId").toString());
+			User user = userDao.getById(userId);
+			if(user.getRoleId() == 1) return userId;
+			
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return 0;
 	}
 	
 	public String setCodeOrder() {

@@ -2,6 +2,8 @@ package com.ccnpmm.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,9 +24,18 @@ public class Admin_OrderDetailController {
 	@Autowired OrderDAO odao;
 	@Autowired OrderDetailDAO oddao;
 	@Autowired ProductDAO pdao;
+	@Autowired Common common;
+	private Integer userID = 0;
+	
 	@RequestMapping("/detail/{orderId}")
-	public String detail(ModelMap model,@PathVariable("orderId") Integer id)
+	public String detail(ModelMap model,@PathVariable("orderId") Integer id, HttpServletRequest request)
 	{
+		
+		userID = common.AdminLogin(request);
+		if(userID == 0) {
+			return "redirect:/login";
+		}
+		
 		Order order=odao.getById(id);
 		List<OrderDetail> orderdetails=oddao.getByOrder(id);
 		for(int i=0;i<orderdetails.size();i++)

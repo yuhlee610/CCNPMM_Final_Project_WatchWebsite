@@ -7,62 +7,70 @@
 <head>
 <base href="${pageContext.servletContext.contextPath}/">
 <meta charset="UTF-8">
-<title>Product</title>
+<title>Order</title>
 <link
 	href="resources/admin/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 </head>
 <body>
+
+
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Products</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Orders/ ${type}</h6>
 		</div>
+
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<table class="table table-bordered" id="dataTable" width="100%"
+					cellspacing="0">
 					<thead>
 						<tr>
-						<th></th>
-							<th>Order Code</th>
-							<th>Date time</th>
-							<th>Total</th>
+
+							<th>Order Id</th>
+							<th>Create Date</th>
 							<th>Address</th>
 							<th>Name</th>
 							<th>Phone</th>
-							<th>Delivery status</th>
+							<th>Total</th>
+							<th>Status</th>
 							<th></th>
 						</tr>
 					</thead>
-					<tfoot>
-						<tr>
-							<th></th>
-							<th>Order Code</th>
-							<th>Date time</th>
-							<th>Total</th>
-							<th>Address</th>
-							<th>Name</th>
-							<th>Phone</th>
-							<th>Delivery status</th>
-							<th></th>
-						</tr>
-					</tfoot>
+
 					<tbody>
-						<c:forEach var="p" items="${orders}">
+						<c:forEach var="o" items="${orders }">
 							<tr>
-								<td></td>
-								<td>${p.code }</td>
-								<td>${p.orderDate }</td>
-								<td>${p.total}</td>
-								<td>${p.address}</td>
-								<td>${p.name}</td>
-								<td>${p.phone}</td>
-								<td>${p.deliveryStatus}</td>
+								<td>${o.code }</td>
+								<td>${o.orderDate }</td>
+								<td>${o.address }</td>
 
-								<td>
-									
-									<a href="admin/product/delete/${p.orderId }">Detail</a>
-								</td>
 
+								<td>${o.name}</td>
+								<td>${o.phone}</td>
+								<td><fmt:formatNumber value="${o.total}" type="currency" /></td>
+								<c:choose>
+									<c:when test="${o.deliveryStatus =='1'}">
+										<td>Waiting Confirm</td>
+									</c:when>
+									<c:when test="${o.deliveryStatus =='2'}">
+										<td>Confirmed</td>
+									</c:when>
+									<c:when test="${o.deliveryStatus =='3'}">
+										<td>Delivering</td>
+									</c:when>
+									<c:when test="${o.deliveryStatus =='4'}">
+										<td>Success</td>
+									</c:when>
+									<c:when test="${o.deliveryStatus =='5'}">
+										<td>Canceled</td>
+									</c:when>
+									<c:otherwise>
+										<td>Unknown</td>
+									</c:otherwise>
+								</c:choose>
+
+								<td><a href="order/orderDetail?orderId=${o.orderId }"><p>Detail</p></a></td>
 
 							</tr>
 						</c:forEach>
@@ -73,21 +81,9 @@
 		</div>
 	</div>
 </body>
-<!-- Bootstrap core JavaScript-->
-<script src="resources/admin/vendor/jquery/jquery.min.js"></script>
-<script
-	src="resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="resources/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!-- Custom scripts for all pages-->
-<script src="resources/admin/js/sb-admin-2.min.js"></script>
-<script src="resources/admin/vendor/datatables/jquery.dataTables.min.js"></script>
-<script
-	src="resources/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-<!-- Page level custom scripts -->
 
-<script src="resources/admin/js/demo/datatables-demo.js"></script>
+
 </html>

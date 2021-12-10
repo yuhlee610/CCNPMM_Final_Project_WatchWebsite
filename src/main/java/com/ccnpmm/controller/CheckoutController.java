@@ -38,6 +38,10 @@ public class CheckoutController {
 
 				float total = 0;
 				List<UserCart> listCart = userCartDao.getByUser(userId);
+				//Giỏ hàng trống
+				if(listCart.isEmpty()) {
+					model.addAttribute("message", "Không có sản phẩm trong giỏ hàng");
+				}
 				model.addAttribute("listCart", listCart);
 
 				for (UserCart item : listCart) {

@@ -147,23 +147,28 @@ const removeReply = () => {
 											<li><a href="shop.html"> Product list</a></li>
 											<li><a href="product_details.html"> Product Details</a></li>
 										</ul></li>
-									<li><a href="blog.html">Blog</a>
+									<li><a href="order">Your order</a>
 										<ul class="submenu">
-											<li><a href="blog.html">Blog</a></li>
-											<li><a href="blog-details.html">Blog Details</a></li>
+											<li><a href="order?type=All">All Orders</a></li>
+											<li><a href="order?type=Waitting">Waitting Orders</a></li>
+											<li><a href="order?type=Confirmed">Confirmed Orders</a></li>
+											<li><a href="order?type=Delivering">Delivering Orders</a></li>
+											<li><a href="order?type=Received">Received Orders</a></li>
+											<li><a href="order?type=Canceled">Canceled Orders</a></li>
 										</ul></li>
-									<li><a href="#">Pages</a>
+									<li><a href="cartList">Your cart</a>
 										<ul class="submenu">
-											<li><a href="login.html">Login</a></li>
 											<li><a href="<c:url value="/cartList" />">Cart</a></li>
-											<li><a href="elements.html">Element</a></li>
-											<li><a href="confirmation.html">Confirmation</a></li>
-											<li><a href="checkout.html">Product Checkout</a></li>
+											<li><a href="">Element</a></li>
+											<li><a href="">Confirmation</a></li>
+											<li><a href="checkout/">Product Checkout</a></li>
 										</ul></li>
-									<li><a href="contact.html">Contact</a>
+									<li><a href="user/profile">Profile</a>
 										<ul class="submenu">
 											<li><a href="user/profile">Profile</a></li>
-											<li><a href="cart">Cart</a></li>
+											<li><a href="order?type=All">Purchase</a></li>
+											<li><a href="logout">Logout</a></li>
+											<li><a href="login">Login</a></li>
 										</ul></li>
 									</li>
 								</ul>
@@ -177,7 +182,7 @@ const removeReply = () => {
 										<span class="flaticon-search"></span>
 									</div>
 								</li>
-								<li><a href="login.html"><span class="flaticon-user"></span></a></li>
+								<!-- <li><a href="login.html"><span class="flaticon-user"></span></a></li> -->
 								<li><a href="<c:url value="/cartList" />"><span
 										class="flaticon-shopping-cart"></span></a></li>
 							</ul>

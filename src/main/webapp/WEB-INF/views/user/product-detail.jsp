@@ -63,14 +63,10 @@ request.getSession().setAttribute("message", "");
 				<c:forEach var="comment" items="${comments}">
 					<div class="comment row mt-4 mb-4">
 						<div class="avatar col-2 text-center">
-							<c:if test="${not empty comment.getAvatar() }">
+							
 								<img class="rounded-circle" width="55%"
 									src="${comment.getAvatar() }" alt="" />
-							</c:if>
-							<c:if test="${empty reply.getAvatar() }">
-								<img class="rounded-circle" width="55%"
-									src="https://joeschmoe.io/api/v1/random" alt="" />
-							</c:if>
+							
 						</div>
 						<div class="col-10">
 							<input type="hidden" id="reply${comment.getId()}"
@@ -83,15 +79,10 @@ request.getSession().setAttribute("message", "");
 							<c:forEach var="reply" items="${comment.getReplyList() }">
 								<div class="comment row mt-4 mb-4">
 									<div class="avatar col-2 text-center">
-										<c:if test="${not empty reply.getAvatar() }">
+										
 											<img class="rounded-circle" width="55%"
 												src="${reply.getAvatar() }" alt="" />
-										</c:if>
-										<c:if test="${empty reply.getAvatar() }">
-											<img class="rounded-circle" width="55%"
-												src="https://joeschmoe.io/api/v1/random" alt="" />
-										</c:if>
-									</div>
+																		</div>
 									<div class="col-10">
 										<input type="hidden" id="reply${reply.getId()}"
 											value="${reply.getReplyFrom()}" />
@@ -112,7 +103,7 @@ request.getSession().setAttribute("message", "");
 						<div class="row mb-2">
 							<div class="avatar col-2 text-center">
 								<img class="rounded-circle" width="55%"
-									src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"
+									src="${avatar}"
 									alt="" />
 							</div>
 							<div class="col-10" id="input-comment">

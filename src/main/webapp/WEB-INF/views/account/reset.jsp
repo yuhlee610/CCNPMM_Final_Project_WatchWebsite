@@ -43,26 +43,18 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="login_part_form">
                             <div class="login_part_form_iner">
-                                <h3>Welcome Back ! <br>
-                                    Please Sign in now</h3>
-                                <form class="row contact_form" action="login" method="post" modelAttrbute="user">
+                                <h3>Use your Email to reset password!
+                                    </h3>
+                                <form class="row contact_form" action="mailReset" method="post" modelAttrbute="user">
                                     <div class="col-md-12 form-group p_star">
-                                        <input type="text" class="form-control" id="username" name="username" value="${user.username}"
-                                            placeholder="Username" required>
-                                    </div>
-                                    <div class="col-md-12 form-group p_star">
-                                        <input type="password" class="form-control" id="password" name="password" value="${user.password}"
-                                            placeholder="Password" required>
+                                        <input type="email" class="form-control" id="email" name="email" value="${user.username}"
+                                            placeholder="Your Email Account" required>
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <div class="creat_account d-flex align-items-center">
-                                            <input type="checkbox" id="f-option" name="selector">
-                                            <label for="f-option">Remember me</label>
-                                        </div>
                                         <button type="submit" value="submit" class="btn_3">
-                                            log in
+                                            Reset Password
                                         </button>
-                                        <a class="lost_pass" href="reset">forget password?</a>
+                                        
                                     </div>
                                 </form>
                             </div>
@@ -171,7 +163,7 @@
     
     <!-- JS here -->
     <script>
-    if("${errors}" != "") alert("${errors}");
+    if("${message}" != "") alert("${message}");
     </script>
 
     <script src="./resources/assets/js/vendor/modernizr-3.5.0.min.js"></script>

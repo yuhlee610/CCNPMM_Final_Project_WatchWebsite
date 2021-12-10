@@ -21,6 +21,13 @@ public class DetailCartDAO {
 		String sql = "select * from Cart, Product where Cart.UserId = ? and ProductId = Product.Id";
 		return jdbc.query(sql, getRowMapper(), id);
 	}
+	
+	public List<DetailCart> getDetailOrder(Serializable orderId) {
+		String sql = "select ProductId, ProductName as Name, Count, OrderDetail.Price AS Price, Product.Image AS Image\r\n"
+				+ "from OrderDetail, Product\r\n"
+				+ "where OrderDetail.ProductId = Product.Id and OrderDetail.OrderId = ?";
+		return jdbc.query(sql, getRowMapper(), orderId);
+	}
 
 	
 	private RowMapper<DetailCart> getRowMapper() {

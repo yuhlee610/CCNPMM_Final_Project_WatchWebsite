@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,9 +18,16 @@ import com.ccnpmm.entity.Report;
 @RequestMapping("/admin")
 public class Admin_DashboardController {
 	@Autowired ReportDAO rdao;
+	@Autowired Common common;
+	private Integer userID = 0;
 	@RequestMapping()
-	public String index(ModelMap model)
+	public String index(ModelMap model, HttpServletRequest request)
 	{
+		userID = common.AdminLogin(request);
+		if(userID == 0) {
+			return "redirect:/login";
+		}
+		
 		List<Report> reportmonths =new ArrayList<Report>();
 		List<Report> reportyears =new ArrayList<Report>();
 		LocalDate current_date = LocalDate.now();

@@ -43,9 +43,17 @@ public class Admin_Product {
 	MaterialDAO mdao;
 	@Autowired
 	ServletContext context;
+	@Autowired Common common;
+	private Integer userID = 0;
 
 	@RequestMapping()
-	public String index(ModelMap model) {
+	public String index(ModelMap model, HttpServletRequest request) {
+		
+		userID = common.AdminLogin(request);
+		if(userID == 0) {
+			return "redirect:/login";
+		}
+		
 		List<Product> products = pdao.getAll();
 
 		for (int i = 0; i < products.size(); i++) {

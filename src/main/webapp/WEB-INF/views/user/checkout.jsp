@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<!--================Checkout Area =================-->
+<!--================Checkout Area =================-->
 	<section class="checkout_area section_padding"
 		style="padding-top: 100px;">
 		<div class="container">
@@ -69,5 +69,10 @@
 		</div>
 	</section>
 	<!--================End Checkout Area =================-->
+	<script type="text/javascript">
+		if ("${message}" != "") {
+			alert("${message}");
+		}
+	</script>
 </body>
 </html>
