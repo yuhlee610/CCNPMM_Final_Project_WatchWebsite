@@ -25,7 +25,7 @@ public class OrderDAO {
 	}
 	
 	public void insert1(Order1 entity) {
-		String sql = "INSERT INTO [dbo].[Order] (Code, OrderDate, Total, Address, Name, Phone, UserId, DeliveryStatus) VALUES (?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO [dbo].[Order] (Code, OrderDate, Total, Address, Name, Phone, UserId, DeliveryStatus) VALUES (?,?,?,?,?,?,?,?)";
 		jdbc.update(sql, entity.getCode(), entity.getOrderDate(), entity.getTotal(),
 				entity.getAddress(), entity.getName(), entity.getPhone(), entity.getUserId(),
 				entity.getDeliveryStatus());
@@ -57,6 +57,15 @@ public class OrderDAO {
 	public List<Order> getByUserId(Serializable userid) {
 		String sql = "SELECT * FROM [Order] WHERE UserId="+userid;
 		return getBySql(sql);
+	}
+	
+	public List<Order> getByDelivery(Integer id, String deliveryStatus) {
+		String sql = "SELECT * FROM [Order] WHERE UserId=? and DeliveryStatus =?";
+		return jdbc.query(sql, getRowMapper(),id, deliveryStatus);
+	}
+	public List<Order> getByUserid(Integer id) {
+		String sql = "SELECT * FROM [Order] WHERE UserId=?";
+		return jdbc.query(sql, getRowMapper(),id);
 	}
 
 	public Order getByCode(String code) {

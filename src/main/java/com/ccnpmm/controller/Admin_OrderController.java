@@ -21,9 +21,16 @@ import com.ccnpmm.entity.User;
 public class Admin_OrderController {
 	@Autowired OrderDAO odao;
 	@Autowired UserDAO udao;
+	@Autowired Common common;
+	private Integer userID = 0;
 	@RequestMapping()
-	public String index(ModelMap model)
+	public String index(ModelMap model, HttpServletRequest request)
 	{
+		userID = common.AdminLogin(request);
+		if(userID == 0) {
+			return "redirect:/login";
+		}
+		
 		List<Order> orderwconfirms= odao.getOrderWconfirm();
 		List<Order> orderconfirms= odao.getOrderConfirm();
 		List<Order> orderdelivers= odao.getOrderDeliver();

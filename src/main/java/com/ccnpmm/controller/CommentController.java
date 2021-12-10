@@ -19,6 +19,8 @@ import com.ccnpmm.entity.Comment;
 public class CommentController {
 	@Autowired
 	private CommentDAO commentDao;
+	@Autowired Common common;
+	private Integer userId;
 	
 	@RequestMapping(value = "addComment", method = RequestMethod.POST)
 	public RedirectView index(
@@ -27,12 +29,18 @@ public class CommentController {
 			HttpServletRequest request) {
 		RedirectView rv = new RedirectView();
 		rv.setContextRelative(true);
+		userId = common.Login(request);
+		if(userId == 0) {
+			rv.setUrl("/login");
+			return rv;
+		}
 		rv.setUrl("/detail?productId=" + comment.getProductId());
 		
 //		User user = (User) request.getSession().getAttribute("user");
 		
+		
 		comment.setDate(new Date());
-		comment.setUserId(2);
+		comment.setUserId(userId);
 		
 		if(comment.getReplyFrom() == 0) {
 			comment.setReplyFrom(null);

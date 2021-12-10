@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,16 +43,18 @@ public class UserController {
 		}
 		
 		User1 user = user1Dao.getById(userId);
-		String birthdayStr = user.getBirthday().toString();
-		SimpleDateFormat StringToDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		Date birthdayDate = null;
+		String birthday = "";
 		try {
+			String birthdayStr = user.getBirthday().toString();		
+			SimpleDateFormat StringToDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 			birthdayDate = StringToDate.parse(birthdayStr);
-		} catch (ParseException e) {
+			DateFormat DateToString = new SimpleDateFormat("yyyy-MM-dd");
+	        birthday = DateToString.format(birthdayDate);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		DateFormat DateToString = new SimpleDateFormat("yyyy-MM-dd");
-        String birthday = DateToString.format(birthdayDate);
+		
         user.setBirthday(birthday);
         if(flagAlert == 1) {
         	model.addAttribute("message", "Cập nhật thông tin thành công");
@@ -66,24 +69,36 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/editProfile", method = RequestMethod.POST )
-	public String editProfile(HttpServletRequest request, ModelMap model, @ModelAttribute("user") User1 user) {
+	public String editProfile(HttpServletRequest request, ModelMap model, @ModelAttribute("user") User1 user,
+			@RequestParam("attachment") MultipartFile file) {
 		try {
 			userId = common.Login(request);
 			if(userId == 0) {
 				return "redirect:/login";
 			}
 			
+			
 			user.setId(userId);
+			if (!file.isEmpty()) {
+				String imageUrl = "resources/assets/img/avatar/" + file.getOriginalFilename();
+				String absolutePath = context.getRealPath(imageUrl);
+				File uploadFile = new File(absolutePath);
+				file.transferTo(uploadFile);
+
+				//helper.addAttachment(uploadFile.getName(), uploadFile);
+
+				user.setAvatar(imageUrl);
+			}
 			
 			// Kiem tra exception null của avatar
 			try {
 				String avatar = user.getAvatar();
 				if(avatar.equals(null)) {
-					user.setAvatar("resources/Users/images/profile/pic1.jpg");
+					user.setAvatar("resources/assets/img/avatar/default.png");
 				}
 			}
 			catch (Exception e) {
-				user.setAvatar("resources/Users/images/profile/pic1.jpg");
+				user.setAvatar("resources/assets/img/avatar/default.png");
 			}
 			
 			
@@ -104,6 +119,8 @@ public class UserController {
 	@ResponseBody 
 	public String changePassword(HttpServletRequest request, String newPassword, String currentPassword) {
 		HttpSession session = request.getSession();
+
+		
 		try {
 			if(session.getAttribute("username").equals(""))
 				return "login";

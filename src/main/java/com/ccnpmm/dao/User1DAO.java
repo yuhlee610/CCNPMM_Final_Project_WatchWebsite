@@ -24,7 +24,7 @@ public class User1DAO {
 	}
 
 	public void update(User1 entity) {
-		String sql = "UPDATE [User] SET Name=?, Address=?, Phone=?, Birthday=?, Avartar=? WHERE Id=?";
+		String sql = "UPDATE [User] SET Name=?, Address=?, Phone=?, Birthday=?, Avatar=? WHERE Id=?";
 		jdbc.update(sql, entity.getName(), entity.getAddress(), entity.getPhone(), entity.getBirthday(),
 				entity.getAvatar(), entity.getId());
 	}

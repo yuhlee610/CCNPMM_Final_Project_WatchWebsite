@@ -135,7 +135,7 @@
 						</div>
 						<div class="popular-caption">
 							<h3>
-								<a href="product_details.html">${p.getName() }</a>
+								<a href="detail?productId=${p.getId() }">${p.getName() }</a>
 							</h3>
 							<span>$ ${p.getPrice()}</span>
 						</div>

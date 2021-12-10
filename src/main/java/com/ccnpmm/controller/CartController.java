@@ -36,6 +36,7 @@ public class CartController {
 	private DetailCartDAO detailCartDao;
 	
 	@Autowired private Common common;
+	private Integer userId = 0;
 	
 	@RequestMapping("/updateCart")
 	public String updateCart(
@@ -43,8 +44,13 @@ public class CartController {
 			@RequestParam(value = "quantity", required = true) Integer quantity, 
 			HttpServletRequest request,
 			ModelMap model) {
+		userId = common.Login(request);
+		if(userId == 0) {
+			return "redirect:/login";
+		}
+		
 //		User user = (User) request.getSession().getAttribute("user");
-		List<DetailCart> listCart = detailCartDao.getByUserId(2);
+		List<DetailCart> listCart = detailCartDao.getByUserId(userId);
 		DetailCart item = new DetailCart();
 		for(final DetailCart dc : listCart) {
 			if(dc.getProductId().equals(productId)) {
@@ -61,11 +67,11 @@ public class CartController {
 			}
 			else {
 				if(quantity == 0) {
-					cartDao.delete(2, productId);
+					cartDao.delete(userId, productId);
 					request.getSession().setAttribute("message", "Da xoa khoi gio hang");
 				}
 				else {
-					Cart cart = new Cart(2, productId, quantity);
+					Cart cart = new Cart(userId, productId, quantity);
 					cartDao.update(cart);
 					request.getSession().setAttribute("message", "Cap nhat thanh cong");
 				}
@@ -113,7 +119,11 @@ public class CartController {
 			HttpServletRequest request,
 			ModelMap model) {
 //		User user = (User) request.getSession().getAttribute("user");
-		User user = userDao.getById(2);
+		userId = common.Login(request);
+		if(userId == 0) {
+			return "redirect:/login";
+		}
+		User user = userDao.getById(userId);
 
 		String message = (String) request.getSession().getAttribute("message");
 
@@ -168,11 +178,20 @@ public class CartController {
 			@RequestParam(value = "quantity", required = true) Integer quantity, 
 			HttpServletRequest request,
 			ModelMap model) {
-//		User user = (User) request.getSession().getAttribute("user");
-		User user = userDao.getById(2);
+		
+		
 
 		RedirectView rv = new RedirectView();
 		rv.setContextRelative(true);
+		userId = common.Login(request);
+		if(userId == 0) {
+			rv.setUrl("/login");
+			return rv;
+		}
+
+		User user = userDao.getById(userId);
+		
+		
 		rv.setUrl("/detail?productId=" + productId);
 
 		String message = (String) request.getSession().getAttribute("message");

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,10 +25,12 @@ import com.ccnpmm.dao.CartDAO;
 import com.ccnpmm.dao.DetailCartDAO;
 import com.ccnpmm.dao.OrderDAO;
 import com.ccnpmm.dao.OrderDetailDAO;
+import com.ccnpmm.dao.ProductDAO;
 import com.ccnpmm.entity.DetailCart;
 import com.ccnpmm.entity.Order;
 import com.ccnpmm.entity.Order1;
 import com.ccnpmm.entity.OrderDetail;
+import com.ccnpmm.entity.Product;
 import com.ccnpmm.service.PaypalPaymentIntent;
 import com.ccnpmm.service.PaypalPaymentMethod;
 import com.ccnpmm.utils.Utils;
@@ -66,12 +69,14 @@ public class PaypalController {
 	@Autowired
 	OrderDAO orderDao;
 	@Autowired
+	ProductDAO productDao;
+	@Autowired
 	OrderDetailDAO orderDetailDao;
 	private Order1 orderInfo = new Order1();
 	private Integer userId = 0;
 
 	@RequestMapping("/authorize_payment")
-	public String authorize_paypal(HttpServletRequest request, @RequestParam("radioName") String check,
+	public String authorize_paypal(ModelMap model, HttpServletRequest request, @RequestParam("radioName") String check,
 			@RequestParam(value = "name", required = true) String customerName,
 			@RequestParam(value = "phone", required = true) String phone,
 			@RequestParam(value = "address", required = true) String address) {
@@ -112,13 +117,19 @@ public class PaypalController {
 		Float sum = (float) 0;
 		cartList = detailCartDao.getByUserId(userId);
 
+		
+		//Giỏ hàng trống
+		if(cartList.isEmpty()) {
+			model.addAttribute("message", "Không có sản phẩm trong giỏ hàng");
+			return "redirect:/checkout/";
+		}
 		for (final DetailCart dc : cartList) {
 			sum = sum + dc.getPrice() * dc.getCount();
 		}
 
 		orderInfo.setUserId(userId);
 		orderInfo.setTotal(Double.valueOf(sum));
-		orderInfo.setDeliveryStatus("wait confirm");
+		orderInfo.setDeliveryStatus("1");
 
 		if (check.equals("paypal")) {
 			String cancelUrl = Utils.getBaseURL(request) + "/paypal/" + URL_PAYPAL_CANCEL;
@@ -205,7 +216,7 @@ public class PaypalController {
 		else if (check.equals("cod")) {
 			if (addOrder()) {
 				if (addOrderdeleteCart(userId, orderInfo.getCode())) {
-					return "success";
+					return "redirect:/order";
 				}
 			}
 		}
@@ -220,7 +231,7 @@ public class PaypalController {
 
 				if (addOrder()) {
 					if (addOrderdeleteCart(userId, orderInfo.getCode())) {
-						return "success";
+						return "user/success";
 					}
 				}
 			}
@@ -229,7 +240,7 @@ public class PaypalController {
 		}
 		if (addOrder()) {
 			if (addOrderdeleteCart(userId, orderInfo.getCode())) {
-				return "success";
+				return "redirect:/order";
 			}
 		}
 		return "redirect:/";
@@ -271,7 +282,6 @@ public class PaypalController {
 			int bool = 1;
 			// Lay danh sach trong gio hang
 			List<DetailCart> cartList = null;
-			Float sum = (float) 0;
 			Order order = orderDao.getByCode(code);
 			cartList = detailCartDao.getByUserId(userId);
 
@@ -282,8 +292,14 @@ public class PaypalController {
 				orderDetail.setCount(dc.getCount());
 				orderDetail.setPrice(Double.valueOf(dc.getPrice()));
 				orderDetail.setProductId(dc.getProductId());
+				
+				Product product = productDao.getById(dc.getProductId());
+				product.setAmount(product.getAmount() - dc.getCount());
+				product.setSold(product.getSold() + dc.getCount());
+				
 				try {
 					orderDetailDao.insert(orderDetail);
+					productDao.update(product);
 				} catch (Exception e) {
 					bool = 0;
 				}

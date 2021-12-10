@@ -21,9 +21,16 @@ import com.ccnpmm.entity.Material;
 @RequestMapping("/admin/material")
 public class Admin_MaterialController {
 	@Autowired MaterialDAO mtdao;
+	@Autowired Common common;
+	private Integer userID = 0;
 	@RequestMapping()
-	public String index(ModelMap model)
+	public String index(ModelMap model, HttpServletRequest request)
 	{
+		userID = common.AdminLogin(request);
+		if(userID == 0) {
+			return "redirect:/login";
+		}
+		
 		model.addAttribute("material", new Material());
 		model.addAttribute("materials", mtdao.getAll());
 		model.addAttribute("message", "");

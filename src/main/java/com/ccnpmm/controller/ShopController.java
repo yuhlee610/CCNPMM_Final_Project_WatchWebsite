@@ -17,10 +17,12 @@ import com.ccnpmm.dao.CommentUserDAO;
 import com.ccnpmm.dao.EnergyDAO;
 import com.ccnpmm.dao.MaterialDAO;
 import com.ccnpmm.dao.ProductDAO;
+import com.ccnpmm.dao.UserDAO;
 import com.ccnpmm.entity.Brand;
 import com.ccnpmm.entity.CommentUser;
 import com.ccnpmm.entity.Filter;
 import com.ccnpmm.entity.Product;
+import com.ccnpmm.entity.User;
 
 @Controller
 public class ShopController {
@@ -35,9 +37,12 @@ public class ShopController {
 
 	@Autowired
 	private ProductDAO productDao;
+	@Autowired UserDAO userDao;
 	
 	@Autowired
 	private CommentUserDAO commentUserDao;
+	@Autowired Common common;
+	private Integer userId = 0;
 	
 
 	@RequestMapping("/detail")
@@ -45,6 +50,12 @@ public class ShopController {
 			@RequestParam(value = "productId", required = true) String productId, 
 			ModelMap model,
 			HttpServletRequest request) {
+		userId = common.Login(request);
+		if(userId != 0) {
+			User user = userDao.getById(userId);
+			model.addAttribute("avatar", user.getAvatar());
+		}
+		
 		Product pro = productDao.getById(productId);
 		model.addAttribute("product", pro);
 		

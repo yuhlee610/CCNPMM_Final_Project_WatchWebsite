@@ -24,9 +24,17 @@ import com.ccnpmm.entity.Brand;
 @RequestMapping("/admin/brand")
 public class Admin_BrandController {
 	@Autowired BrandDAO branddao;
+	@Autowired Common common;
+	private Integer userID = 0;
+	
 @RequestMapping()
-public String index(ModelMap model)
+public String index(ModelMap model, HttpServletRequest request)
 {
+	userID = common.AdminLogin(request);
+	if(userID == 0) {
+		return "redirect:/login";
+	}
+	
 	model.addAttribute("brand", new Brand());
 	model.addAttribute("brands", branddao.getAll());
 	model.addAttribute("message", "");
